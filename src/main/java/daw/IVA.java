@@ -9,5 +9,16 @@ package daw;
  * @author nuria
  */
 public enum IVA {
-    
+    ivaRefrescoAlcohol(21), ivaResto(10);
+
+    private final int valor;
+
+    IVA(int value) {
+        this.valor = value;
+
+    }
+
+    public int getValue() {
+        return valor;
+    }
 }
