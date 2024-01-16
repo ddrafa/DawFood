@@ -3,11 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package daw;
+import java.time.LocalDate;
 
 /**
  *
  * @author ddrafa
  */
-public class Tarjeta {
-    
+public record Tarjeta(int numeroTarjeta, int CVV, String titular, double saldo, LocalDate fechaVencimiento) {
 }

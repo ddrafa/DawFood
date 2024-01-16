@@ -8,6 +8,17 @@ package daw;
  *
  * @author ddrafa
  */
-public record Producto() {
+public class Producto {
+    
+    //Atributos
+    int Id;
+    String nomProducto;
+    String descripcion;
+    double precio;
+    CATEGORIA categoria;
+    SUBCATEGORIA subcategoria;
+    int stock;
+    IVA iva;
+    
 
 }

@@ -9,7 +9,7 @@ package daw;
  * @author nuria
  */
 public enum IVA {
-    ivaRefrescoAlcohol(21), ivaResto(10);
+    ivaRefrescosAlcohol(21), ivaOtros(10);
 
     private final int valor;
 
