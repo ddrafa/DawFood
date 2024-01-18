@@ -9,5 +9,5 @@ package daw;
  * @author nuria
  */
 public enum CATEGORIA {
-    hamburguesa, entrantes,  bebidas, postres, otros
+    hamburguesa, entrantes, bebidas, postres, otros
 }
