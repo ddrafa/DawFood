@@ -10,7 +10,7 @@ package daw;
  */
 public enum SUBCATEGORIA {
     //subcategorías hamburguesas
-    pollo, ternera, vegetal, 
+    pollo, parrilla, vegetal, 
     //subcategorías bebidas
     refresco, alcohol, bebidaCaliente,  
     //subcategorías entrantes
