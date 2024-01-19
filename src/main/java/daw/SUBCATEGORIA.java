@@ -14,5 +14,7 @@ public enum SUBCATEGORIA {
     //subcategorías bebidas
     refresco, alcohol, bebidaCaliente,  
     //subcategorías entrantes
-    fritos, ensalada
+    fritos, ensalada,
+    //subcategorías otros
+    postres, otros
 }

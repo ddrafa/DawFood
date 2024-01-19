@@ -20,7 +20,8 @@ public class Producto {
     int stock;
     IVA iva;
 
-    public Producto(int Id, String nomProducto, String descripcion, double precio, CATEGORIA categoria, SUBCATEGORIA subcategoria, int stock, IVA iva) {
+    public Producto(int Id, String nomProducto, String descripcion, double precio,
+            CATEGORIA categoria, SUBCATEGORIA subcategoria, int stock, IVA iva) {
         this.Id = Id;
         this.nomProducto = nomProducto;
         this.descripcion = descripcion;

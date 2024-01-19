@@ -34,7 +34,7 @@ public class Main {
                 8, CATEGORIA.hamburguesa,SUBCATEGORIA.pollo,
                 150, IVA.ivaOtros);
         Producto p2 = new Producto(002, "La Chillona", 
-                "Si las hamburguesas hablasen esta CHILLARÍA por su carne de cerdo poco echa, bacon y queso fundido", 
+                "Si las hamburguesas hablasen esta CHILLARÍA por su carne de ternera poco echa, bacon y queso fundido", 
                 6, CATEGORIA.hamburguesa,SUBCATEGORIA.parrilla,
                 200, IVA.ivaOtros);
         Producto p3 = new Producto(003, "El Queso", 
@@ -42,7 +42,7 @@ public class Main {
                 10, CATEGORIA.hamburguesa,SUBCATEGORIA.pollo,
                 100, IVA.ivaOtros);
         Producto p4 = new Producto(004, "La Jugosa", 
-                "Una buena carne de ternera al punto, jugosa y sabrosa, con bacon crujiente, para chuparse los dedos", 
+                "Una buena carne de cerdo al punto, jugosa y sabrosa, con bacon crujiente, para chuparse los dedos", 
                 8, CATEGORIA.hamburguesa,SUBCATEGORIA.parrilla,
                 175, IVA.ivaOtros);
         Producto p5 = new Producto(005, "La Enredadera", 
@@ -53,5 +53,7 @@ public class Main {
                 "Alternativa vegetariana de 'La Jugosa' que se esparcirá por tus papilas gustativas cuál musgo en una cueva", 
                 9, CATEGORIA.hamburguesa,SUBCATEGORIA.vegetal,
                 75, IVA.ivaOtros);
+        
+        
     }
 }
