@@ -30,7 +30,15 @@ public class Programa {
 
     }
 
-    public static void inicializarTPVs() {
-
+    public static void inicializarTPVs(){
+        BBDD.listaDeTPVs();
+}
+    
+    public static void inicializarProductos(){
+        BBDD.listaDeProductos();
+    }
+    
+    public static void inicializarTarjeta(){
+        BBDD.listaDeTarjetas();
     }
 }
