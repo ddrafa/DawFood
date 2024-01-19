@@ -14,7 +14,7 @@ public class Ticket {
     //Atributos de Ticket
     private ArrayList<Producto> listaTicket = new ArrayList<>();
     private double Total;
-
+//El constructor está vacío porque por ahora no vamos a rellenar nada 
     public Ticket() {
     }
 

@@ -9,16 +9,17 @@ package daw;
  * @author nuria
  */
 public enum IVA {
-    ivaRefrescosAlcohol(21), ivaOtros(10);
+    //IVAS dependiendo de los productos
+    ivaRefrescosAlcohol(0.21), ivaOtros(0.10);
 
-    private final int valor;
+    private final double valor;
 
-    IVA(int value) {
+    IVA(double value) {
         this.valor = value;
 
     }
 
-    public int getValue() {
+    public double getValue() {
         return valor;
     }
 }

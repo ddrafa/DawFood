@@ -18,6 +18,7 @@ import org.apache.commons.lang3.RandomStringUtils;
  */
 public class TPV {
 
+    //Definen que tipos de caracteres obligatorios tienen que llevar las contraseñas de las TPV
     private final static String SPECIAL_CHARACTERS
             = "#$%&()*+,-.:;<=>@";
     private final static String MINUSCULAS_CHARACTERS
@@ -32,6 +33,8 @@ public class TPV {
     private LocalDateTime clock = LocalDateTime.now();
     final String password;
 
+    //genera una contraseña con los caracteres necesarios, que están ya definidos (por ejemplo se puede poner que en vez de 2 mayus
+    //hayan 5, igual con todos los tipos de caracteres
     public TPV(String location) {
         RandomStringUtils rsu = new RandomStringUtils();
         final String MAYUSCULAS = RandomStringUtils.random(2, MAYUSCULAS_CHARACTERS);
@@ -40,7 +43,7 @@ public class TPV {
         final String SPECIAL = RandomStringUtils.random(1, SPECIAL_CHARACTERS);
         this.password = MAYUSCULAS + SPECIAL + MINUSCULA + NUMBERS;
         this.location = location;
-        
+        //Este método acorta el UUID, ya que si se deja tal cual genera un código muy largo y necesitabamos que fuera más práctico
         String aux = UUID.randomUUID().toString().toUpperCase();
         Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
         Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
@@ -48,11 +51,12 @@ public class TPV {
         Collections.shuffle(collect);
         this.numSerie = collect.stream().map(Object::toString).collect(Collectors.joining());
     }
-    
+
+    //getters y setters
     public String getNumSerie() {
         return numSerie;
     }
-    
+
     public String getLocation() {
         return location;
     }
@@ -64,7 +68,7 @@ public class TPV {
     public String getPassword() {
         return password;
     }
-    
+
     public void setLocation(String location) {
         this.location = location;
     }
@@ -84,7 +88,5 @@ public class TPV {
         sb.append('}');
         return sb.toString();
     }
-
-    
 
 }
