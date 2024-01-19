@@ -4,10 +4,51 @@
  */
 package daw;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author ddrafa
  */
 public class Ticket {
+    //Atributos de Ticket
+    private ArrayList<Producto> listaTicket = new ArrayList<>();
+    private double Total;
+
+    public Ticket() {
+    }
+
+    public ArrayList<Producto> getListaTicket() {
+        return listaTicket;
+    }
+
+    public double getTotal() {
+        return Total;
+    }
+
+    public void setListaTicket(ArrayList<Producto> listaTicket) {
+        this.listaTicket = listaTicket;
+    }
+
+    public void setTotal(double Total) {
+        this.Total = Total;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("-------------------------------------------------").append("\n");
+        sb.append("Ticket:").append("\n");
+        sb.append("-------------------------------------------------").append("\n");
+        for(int i = 0;i<listaTicket.size();i++){
+        sb.append(i+1).append(".- ").append(listaTicket.get(i)).append("----").append(listaTicket.get(i).nomProducto).append("\n");
+        }
+        sb.append("-------------------------------------------------").append("\n");
+        sb.append(", Total=").append(Total);
+        return sb.toString();
+    }
     
+    public void descartarProducto(){
+        
+    }
 }
