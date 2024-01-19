@@ -12,7 +12,20 @@ public class Main {
 
     public static void main(String[] args) {
 
+        boolean proceder = true;
+
         Programa.inicializarTPVs();
         Programa.inicializarProductos();
+
+        do {
+            String acceso = Programa.encenderTPV();
+            if(acceso=="Modo Usuario"){
+              Ticket ticket= Programa.comoUsuario();
+            } else if(acceso== "Modo Administrador"){
+                Programa.comoAdministrador();
+            }else {
+                proceder=false;              
+            }
+        } while (proceder);
     }
 }
