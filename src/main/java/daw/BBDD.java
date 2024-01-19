@@ -43,7 +43,7 @@ public class BBDD {
 
         listaTarjetas.add(new Tarjeta(5559, 496, "Jesús Hernández", 500_000_000, LocalDate.of(2040, 12, 8)));
 
-        listaTarjetas.add(new Tarjeta(6643, 224, "Rosario Del Castillo", 456, LocalDate.of(2036, 2, 3)));
+        listaTarjetas.add(new Tarjeta(6643, 224, "Nuria Del Castillo", 456, LocalDate.of(2036, 2, 3)));
 
         listaTarjetas.add(new Tarjeta(9213, 590, "Fernando Fernández", 749, LocalDate.of(3333, 3, 4)));
             

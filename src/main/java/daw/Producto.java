@@ -25,11 +25,11 @@ public class Producto {
         this.Id = Id;
         this.nomProducto = nomProducto;
         this.descripcion = descripcion;
-        this.precio = precio;
+        this.iva = iva;
+        this.precio = precio+(precio*this.iva.getValue());
         this.categoria = categoria;
         this.subcategoria = subcategoria;
         this.stock = stock;
-        this.iva = iva;
     }
 
     public int getId() {

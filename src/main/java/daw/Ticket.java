@@ -11,9 +11,11 @@ import java.util.ArrayList;
  * @author ddrafa
  */
 public class Ticket {
-    //Atributos de Ticket
+
+//Atributos de Ticket
     private ArrayList<Producto> listaTicket = new ArrayList<>();
     private double Total;
+    
 //El constructor está vacío porque por ahora no vamos a rellenar nada 
     public Ticket() {
     }
@@ -34,21 +36,22 @@ public class Ticket {
         this.Total = Total;
     }
 
+//toString personalizado para el ticket con el listado de productos, su respectivo precio y el total
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("-------------------------------------------------").append("\n");
         sb.append("Ticket:").append("\n");
         sb.append("-------------------------------------------------").append("\n");
-        for(int i = 0;i<listaTicket.size();i++){
-        sb.append(i+1).append(".- ").append(listaTicket.get(i)).append("----").append(listaTicket.get(i).nomProducto).append("\n");
+        for (int i = 0; i < listaTicket.size(); i++) {
+            sb.append(i + 1).append(".- ").append(listaTicket.get(i)).append("----").append(listaTicket.get(i).nomProducto).append("\n");
         }
         sb.append("-------------------------------------------------").append("\n");
         sb.append(", Total=").append(Total);
         return sb.toString();
     }
-    
-    public void descartarProducto(){
-        
+
+    public void descartarProducto() {
+
     }
 }
