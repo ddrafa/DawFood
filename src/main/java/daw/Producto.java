@@ -11,14 +11,14 @@ package daw;
 public class Producto {
     
     //Atributos
-    int Id;
-    String nomProducto;
-    String descripcion;
-    double precio;
-    CATEGORIA categoria;
-    SUBCATEGORIA subcategoria;
-    int stock;
-    IVA iva;
+    private int Id;
+    private String nomProducto;
+    private String descripcion;
+    private double precio;
+    private CATEGORIA categoria;
+    private SUBCATEGORIA subcategoria;
+    private int stock;
+    private IVA iva;
 
     public Producto(int Id, String nomProducto, String descripcion, double precio,
             CATEGORIA categoria, SUBCATEGORIA subcategoria, int stock, IVA iva) {
