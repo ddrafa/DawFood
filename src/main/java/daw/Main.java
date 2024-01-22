@@ -4,6 +4,8 @@
  */
 package daw;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ddrafa
@@ -13,19 +15,21 @@ public class Main {
     public static void main(String[] args) {
 
         boolean proceder = true;
-
+        
         Programa.inicializarTPVs();
         Programa.inicializarProductos();
+        TPV maquina = Programa.elegirTPV();
 
         do {
-            String acceso = Programa.encenderTPV();
-            if(acceso=="Modo Usuario"){
-              Ticket ticket= Programa.comoUsuario();
-            } else if(acceso== "Modo Administrador"){
-                Programa.comoAdministrador();
+            String acceso = Programa.encenderTPV(maquina);
+            if(acceso.equals("Modo Usuario")){
+              Ticket ticket= Programa.comoUsuario(maquina);
+            } else if(acceso.equals("Modo Administrador")){
+                Programa.comoAdministrador(maquina);
             }else {
                 proceder=false;              
             }
         } while (proceder);
+        JOptionPane.showMessageDialog(null, "Nos vemos pronto :D");
     }
 }
