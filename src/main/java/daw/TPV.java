@@ -50,26 +50,7 @@ public class TPV {
         List<Character> collect = Stream.concat(digit, alpha).collect(Collectors.toList());
         Collections.shuffle(collect);
         this.numSerie = collect.stream().map(Object::toString).collect(Collectors.joining());
-    }
-
-    public TPV() {
-        RandomStringUtils rsu = new RandomStringUtils();
-        final String MAYUSCULAS = RandomStringUtils.random(2, MAYUSCULAS_CHARACTERS);
-        final String MINUSCULA = RandomStringUtils.random(1, MINUSCULAS_CHARACTERS);
-        final String NUMBERS = RandomStringUtils.random(2, NUMBERS_CHARACTERS);
-        final String SPECIAL = RandomStringUtils.random(1, SPECIAL_CHARACTERS);
-        this.password = MAYUSCULAS + SPECIAL + MINUSCULA + NUMBERS;
-        this.location = location;
-        //Este método acorta el UUID, ya que si se deja tal cual genera un código muy largo y necesitabamos que fuera más práctico
-        String aux = UUID.randomUUID().toString().toUpperCase();
-        Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
-        Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
-        List<Character> collect = Stream.concat(digit, alpha).collect(Collectors.toList());
-        Collections.shuffle(collect);
-        this.numSerie = collect.stream().map(Object::toString).collect(Collectors.joining());
-    }
-    
-    
+    }  
 
     //getters y setters
     public String getNumSerie() {

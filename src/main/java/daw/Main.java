@@ -15,21 +15,21 @@ public class Main {
     public static void main(String[] args) {
 
         boolean proceder = true;
-        
+
         Programa.inicializarTPVs();
+        Programa.mostrarTPVs();
         Programa.inicializarProductos();
         TPV maquina = Programa.elegirTPV();
 
-        do {
-            String acceso = Programa.encenderTPV(maquina);
-            if(acceso.equals("Modo Usuario")){
-              Ticket ticket= Programa.comoUsuario(maquina);
-            } else if(acceso.equals("Modo Administrador")){
-                Programa.comoAdministrador(maquina);
-            }else {
-                proceder=false;              
+        String acceso = Programa.encenderTPV(maquina);
+        switch (acceso) {
+            case "Modo Usuario" -> {
+                Ticket ticket = Programa.comoUsuario(maquina);
             }
-        } while (proceder);
+            case "Modo Administrador" -> {
+                Programa.comoAdministrador(maquina);
+            }
+        }
         JOptionPane.showMessageDialog(null, "Nos vemos pronto :D");
     }
 }

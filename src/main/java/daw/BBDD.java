@@ -26,10 +26,6 @@ public class BBDD {
 
         listaTPVs.add(new TPV("Cancelada Avd.Las Palmeras"));
 
-        for (int i = 0; i < listaTPVs.size(); i++) {
-            System.out.println(listaTPVs.get(i).toString());
-        }
-
         return listaTPVs;
     }
 
