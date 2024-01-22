@@ -14,7 +14,8 @@ public class Programa {
 
     public static TPV elegirTPV() {
         final String[] OPCIONESMENU = {"TPV 1", "TPV 2", "TPV 3", "TPV 4"};
-        int seleccion = JOptionPane.showOptionDialog(null, "Selecciona una TPV", "Selección", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, OPCIONESMENU, OPCIONESMENU[0]);
+        int seleccion = JOptionPane.showOptionDialog(null, "Selecciona una TPV", "Selección",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, OPCIONESMENU, OPCIONESMENU[0]);
 
         //a partir de aquí se duplica
         switch (seleccion) {
@@ -44,6 +45,13 @@ public class Programa {
 
     public static Ticket comoUsuario(TPV maquina) {
         Ticket ticket = new Ticket();
+        Carrito carrito = new Carrito();
+        
+        final String[] OPCIONESMENU = {"Catalogo de Productos", "Carrito", "Salir de la selección"};
+        String opcion = (String) JOptionPane.showInputDialog(null,
+                "¿Qué desea hacer?", "Acceder como Usuario",
+                JOptionPane.QUESTION_MESSAGE, null,
+                OPCIONESMENU, "Cambiar Producto");
 
         return ticket;
     }
@@ -52,9 +60,9 @@ public class Programa {
         String contraseñaIntroducida = JOptionPane.showInputDialog("Introduce la contraseña del TPV de " + maquina.getLocation() + ":");
         if (contraseñaIntroducida.equals(maquina.getPassword())) {
 
-            final String[] OPCIONESMENU = {"Cambiar Producto", "Gestionar Productos", "Consultar Ventas"};
+            final String[] OPCIONESMENU = {"Cambiar Producto", "Gestionar Productos", "Consultar Ventas", "Salir de la selección"};
             String opcion = (String) JOptionPane.showInputDialog(null,
-                    "¿Qué tarea desea realizar?", "Acceder",
+                    "¿Qué tarea desea realizar?", "Acceder como Admin",
                     JOptionPane.QUESTION_MESSAGE, null,
                     OPCIONESMENU, "Cambiar Producto");
 
@@ -71,7 +79,9 @@ public class Programa {
                 case "Consultar Ventas" -> {
 
                 }
-
+                case "Salir de la selección" -> {
+                    
+                }
             }
         } else {
             System.out.println("Contraseña incorrecta, inténtelo de nuevo");
