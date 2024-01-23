@@ -28,21 +28,21 @@ public class BBDD {
         this.listaTPVs.add(new TPV("Cancelada Avd.Las Palmeras"));
 
         //TARJETAS
-        this.listaTarjetas.add(new Tarjeta(1123, 456, "Paquito Sánchez", 114.89, LocalDate.of(2060, 5, 13)));
+        this.listaTarjetas.add(new Tarjeta(1123, 456, "Paquito Sánchez", 114.89, LocalDate.of(2060, 5, 31)));
 
-        this.listaTarjetas.add(new Tarjeta(8997, 113, "MariLoli García", 30.6, LocalDate.of(2025, 6, 1)));
+        this.listaTarjetas.add(new Tarjeta(8997, 113, "MariLoli García", 30.6, LocalDate.of(2025, 6, 30)));
 
-        this.listaTarjetas.add(new Tarjeta(5559, 496, "Jesús Hernández", 500_000_000, LocalDate.of(2040, 12, 8)));
+        this.listaTarjetas.add(new Tarjeta(5559, 496, "Jesús Hernández", 500_000_000, LocalDate.of(2040, 12, 31)));
 
-        this.listaTarjetas.add(new Tarjeta(6643, 224, "Nuria Del Castillo", 456, LocalDate.of(2036, 2, 3)));
+        this.listaTarjetas.add(new Tarjeta(6643, 224, "Nuria Del Castillo", 456, LocalDate.of(2036, 2, 28)));
 
-        this.listaTarjetas.add(new Tarjeta(9213, 590, "Fernando Fernández", 749, LocalDate.of(3333, 3, 4)));
+        this.listaTarjetas.add(new Tarjeta(9213, 590, "Fernando Fernández", 749, LocalDate.of(3333, 3, 31)));
 
-        this.listaTarjetas.add(new Tarjeta(6656, 777, "Inés González", 121212, LocalDate.of(2040, 11, 11)));
+        this.listaTarjetas.add(new Tarjeta(6656, 777, "Inés González", 121212, LocalDate.of(2040, 11, 30)));
 
-        this.listaTarjetas.add(new Tarjeta(4398, 130, "Sergio Pérez", 700, LocalDate.of(2029, 9, 15)));
+        this.listaTarjetas.add(new Tarjeta(4398, 130, "Sergio Pérez", 700, LocalDate.of(2029, 9, 30)));
 
-        this.listaTarjetas.add(new Tarjeta(8966, 754, "Rafael Puentes", 2212, LocalDate.of(2045, 7, 23)));
+        this.listaTarjetas.add(new Tarjeta(8966, 754, "Rafael Puentes", 2212, LocalDate.of(2045, 7, 31)));
 
         this.listaTarjetas.add(new Tarjeta(0773, 263, "Clara Palas", 3344, LocalDate.of(2026, 10, 31)));
         

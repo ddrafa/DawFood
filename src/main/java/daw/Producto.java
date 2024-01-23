@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class Producto {
     
     //Atributos
-    private String Id;
+    private final String Id;
     private String nomProducto;
     private String descripcion;
     private double precio;
