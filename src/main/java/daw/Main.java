@@ -15,18 +15,16 @@ public class Main {
     public static void main(String[] args) {
 
         boolean proceder = true;
+        BBDD baseDatos = new BBDD();
+        System.out.println(baseDatos.toString());
+        TPV maquina = Programa.elegirTPV(baseDatos);
 
-        Programa.inicializarTPVs();
-        Programa.mostrarTPVs();
-        Programa.inicializarProductos();
-        TPV maquina = Programa.elegirTPV();
-
-        String acceso = Programa.encenderTPV(maquina);
+        int acceso = Programa.encenderTPV(maquina);
         switch (acceso) {
-            case "Modo Usuario" -> {
+            case 0 -> {
                 Ticket ticket = Programa.comoUsuario(maquina);
             }
-            case "Modo Administrador" -> {
+            case 1 -> {
                 Programa.comoAdministrador(maquina);
             }
         }

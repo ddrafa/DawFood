@@ -31,7 +31,7 @@ public class TPV {
     private final String numSerie;
     private String location;
     private LocalDateTime clock = LocalDateTime.now();
-    final String password;
+    private final String password;
 
     //genera una contraseña con los caracteres necesarios, que están ya definidos (por ejemplo se puede poner que en vez de 2 mayus
     //hayan 5, igual con todos los tipos de caracteres
@@ -50,7 +50,12 @@ public class TPV {
         List<Character> collect = Stream.concat(digit, alpha).collect(Collectors.toList());
         Collections.shuffle(collect);
         this.numSerie = collect.stream().map(Object::toString).collect(Collectors.joining());
-    }  
+    }
+    
+    public TPV(TPV origen){
+        this.numSerie = origen.getNumSerie();
+        this.password = origen.getPassword();
+    }
 
     //getters y setters
     public String getNumSerie() {

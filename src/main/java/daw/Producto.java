@@ -4,6 +4,12 @@
  */
 package daw;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  *
  * @author ddrafa
@@ -11,7 +17,7 @@ package daw;
 public class Producto {
     
     //Atributos
-    private int Id;
+    private String Id;
     private String nomProducto;
     private String descripcion;
     private double precio;
@@ -20,9 +26,8 @@ public class Producto {
     private int stock;
     private IVA iva;
 
-    public Producto(int Id, String nomProducto, String descripcion, double precio,
+    public Producto(String nomProducto, String descripcion, double precio,
             CATEGORIA categoria, SUBCATEGORIA subcategoria, int stock, IVA iva) {
-        this.Id = Id;
         this.nomProducto = nomProducto;
         this.descripcion = descripcion;
         this.iva = iva;
@@ -30,9 +35,16 @@ public class Producto {
         this.categoria = categoria;
         this.subcategoria = subcategoria;
         this.stock = stock;
+        
+        String aux = UUID.randomUUID().toString().toUpperCase();
+        Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
+        Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
+        List<Character> collect = Stream.concat(digit, alpha).collect(Collectors.toList());
+        Collections.shuffle(collect);
+        this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
@@ -62,10 +74,6 @@ public class Producto {
 
     public IVA getIva() {
         return iva;
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
     }
 
     public void setNomProducto(String nomProducto) {
