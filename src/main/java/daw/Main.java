@@ -22,10 +22,10 @@ public class Main {
         int acceso = Programa.encenderTPV(maquina);
         switch (acceso) {
             case 0 -> {
-                Ticket ticket = Programa.comoUsuario(maquina);
+                Ticket ticket = Programa.comoUsuario(maquina, baseDatos);
             }
             case 1 -> {
-                Programa.comoAdministrador(maquina);
+                Programa.comoAdministrador(maquina, baseDatos);
             }
         }
         JOptionPane.showMessageDialog(null, "Nos vemos pronto :D");

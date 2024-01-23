@@ -43,17 +43,19 @@ public class Programa {
                 OPCIONESMENU, OPCIONESMENU[0]);
     }
 
-    public static Ticket comoUsuario(TPV maquina) {
+    public static Ticket comoUsuario(TPV maquina, BBDD baseDatos) {
         Carrito carrito = new Carrito();
-        
-        final String[] OPCIONESMENU = {"Catalogo de Productos", "Carrito", "Salir de la selección"};
+        boolean permiso = false;
+        final String[] OPCIONESMENU = {"Catálogo de Productos", "Carrito", "Salir de la selección"};
         int opcion = JOptionPane.showOptionDialog(null,
                 "¿Qué desea hacer?", "Acceder como Usuario",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                 OPCIONESMENU, OPCIONESMENU[0]);
            switch (opcion) {
 
+               //caso de catálogo de productos
                 case 0 -> {
+                    Programa.catalogo(maquina, baseDatos, permiso);
                     
                 }
 
@@ -71,11 +73,17 @@ public class Programa {
         Ticket ticket = new Ticket(carrito);
         return ticket;
     }
+    
+    public static void catalogo(TPV maquina, BBDD baseDatos, boolean permiso){
+        baseDatos.getListaProductos().toString();
+        
+    }
 
-    public static void comoAdministrador(TPV maquina) {
+    public static void comoAdministrador(TPV maquina, BBDD baseDatos) {
+        boolean permiso = true;
         String password = JOptionPane.showInputDialog("Introduce la contraseña del TPV de " + maquina.getLocation() + ":");
         if (maquina.getPassword().equals(password)) {
-            final String[] OPCIONESMENU = {"Cambiar Producto", "Gestionar Productos", "Consultar Ventas", "Salir de la selección"};
+            final String[] OPCIONESMENU = {"Cambiar Producto", "Consultar Ventas", "Salir de la selección"};
             int opcion = JOptionPane.showOptionDialog(null,
                     "¿Qué tarea desea realizar?", "Acceder como Admin",
                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
@@ -84,6 +92,7 @@ public class Programa {
             switch (opcion) {
 
                 case 0 -> {
+                    Programa.catalogo(maquina, baseDatos, permiso);
                     
                 }
 
@@ -94,9 +103,7 @@ public class Programa {
                 case 2 -> {
 
                 }
-                case 3 -> {
-                    
-                }
+              
             }
         } else {
             System.out.println("Contraseña incorrecta");
