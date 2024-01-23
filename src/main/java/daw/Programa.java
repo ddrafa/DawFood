@@ -51,25 +51,21 @@ public class Programa {
                 "¿Qué desea hacer?", "Acceder como Usuario",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                 OPCIONESMENU, OPCIONESMENU[0]);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+           switch (opcion) {
+
+                case 0 -> {
+                    
+                }
+
+                case 1 -> {
+
+                }
+
+                case 2 -> {
+
+                }
+               
+            }
         
         //El ticket se debe crear despues de haber agregado o eliminido todos los productos del carrito
         Ticket ticket = new Ticket(carrito);
@@ -79,11 +75,10 @@ public class Programa {
     public static void comoAdministrador(TPV maquina) {
         String password = JOptionPane.showInputDialog("Introduce la contraseña del TPV de " + maquina.getLocation() + ":");
         if (maquina.getPassword().equals(password)) {
-
             final String[] OPCIONESMENU = {"Cambiar Producto", "Gestionar Productos", "Consultar Ventas", "Salir de la selección"};
             int opcion = JOptionPane.showOptionDialog(null,
                     "¿Qué tarea desea realizar?", "Acceder como Admin",
-                    JOptionPane.QUESTION_MESSAGE, JOptionPane.WARNING_MESSAGE, null,
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                     OPCIONESMENU, OPCIONESMENU[0]);
 
             switch (opcion) {
