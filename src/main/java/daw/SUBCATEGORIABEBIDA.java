@@ -8,6 +8,9 @@ package daw;
  *
  * @author nuria
  */
-public enum CATEGORIA {
-    Hamburguesas, Entrantes, Bebidas, Otros, Volver
+public enum SUBCATEGORIABEBIDA {
+    //subcategorías bebidas
+    Refresco, Alcohol, BebidaCaliente,
+    //volver
+    Volver
 }

@@ -16,6 +16,7 @@ public class BBDD {
     private ArrayList<TPV> listaTPVs = new ArrayList<>();
     private ArrayList<Tarjeta> listaTarjetas = new ArrayList<>();
     private ArrayList<Producto> listaProductos = new ArrayList<>();
+    private ArrayList<Ticket> listaTickects = new ArrayList<>();
 
     public BBDD() {
         //CREACIÓN DE LAS 4 TPV
@@ -45,88 +46,88 @@ public class BBDD {
         this.listaTarjetas.add(new Tarjeta(8966, 754, "Rafael Puentes", 2212, LocalDate.of(2045, 7, 31)));
 
         this.listaTarjetas.add(new Tarjeta(0773, 263, "Clara Palas", 3344, LocalDate.of(2026, 10, 31)));
-        
+
         //HAMBURGUESAS
         this.listaProductos.add(new Producto("El Pollazo",
                 "Sabrosa hamburguesa de pollo crujiente con bacon, queso y salsa rosa",
-                8, CATEGORIA.hamburguesa, SUBCATEGORIA.pollo,
+                8, CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Pollo,
                 150, IVA.ivaOtros));
         this.listaProductos.add(new Producto("La Chillona",
                 "Si las hamburguesas hablasen esta CHILLARÍA por su carne de ternera poco echa, bacon y queso fundido",
-                6, CATEGORIA.hamburguesa, SUBCATEGORIA.parrilla,
+                6, CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Parrilla,
                 200, IVA.ivaOtros));
         this.listaProductos.add(new Producto("El Queso",
                 "Los científicos catalogan a esta hamburguesa como un nuevo tipo de queso creado por las cantidades bárbaras de queso que tiene",
-                10, CATEGORIA.hamburguesa, SUBCATEGORIA.pollo,
+                10, CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Pollo,
                 100, IVA.ivaOtros));
         this.listaProductos.add(new Producto("La Jugosa",
                 "Una buena carne de cerdo al punto, jugosa y sabrosa, con bacon crujiente, para chuparse los dedos",
-                8, CATEGORIA.hamburguesa, SUBCATEGORIA.parrilla,
+                8, CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Parrilla,
                 175, IVA.ivaOtros));
         this.listaProductos.add(new Producto("La Enredadera",
                 "Alternativa Vegetariana de 'La Chillona' que te atrapará y enredará en su fuerte sabor y especias",
-                7, CATEGORIA.hamburguesa, SUBCATEGORIA.vegetal,
+                7, CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Vegetal,
                 50, IVA.ivaOtros));
         this.listaProductos.add(new Producto("El Musgo",
                 "Alternativa vegetariana de 'La Jugosa' que se esparcirá por tus papilas gustativas cuál musgo en una cueva",
-                9, CATEGORIA.hamburguesa, SUBCATEGORIA.vegetal,
+                9, CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Vegetal,
                 75, IVA.ivaOtros));
 
         //ENTRANTES 
         this.listaProductos.add(new Producto("Chilipapas",
                 "Deliciosas patatas fritas cubiertas por una capa de queso, jalapeños y carne picada de ternera sazonada con nuestra mezcla secreta de especias",
-                7.60, CATEGORIA.entrantes, SUBCATEGORIA.fritos,
+                7.60, CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Fritos,
                 60, IVA.ivaOtros));
 
         this.listaProductos.add(new Producto("Julieta Cesar",
                 "Ensalada de brotes verdes con nuestra deliciosa salsa César, queso parmesano y delicioso pollo frito ",
-                7, CATEGORIA.entrantes, SUBCATEGORIA.ensalada, 90, IVA.ivaOtros));
+                7, CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Ensalada, 90, IVA.ivaOtros));
 
         this.listaProductos.add(new Producto("Aritos",
                 "Aros de cebolla fritos con una salsa a elegir",
-                6.50, CATEGORIA.entrantes, SUBCATEGORIA.fritos, 50, IVA.ivaOtros));
+                6.50, CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Fritos, 50, IVA.ivaOtros));
 
         this.listaProductos.add(new Producto("BoniChips",
                 "Fritos de boniato con una salsa a elegir",
-                6.50, CATEGORIA.entrantes, SUBCATEGORIA.fritos, 40, IVA.ivaOtros));
+                6.50, CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Fritos, 40, IVA.ivaOtros));
 
         //REFRESCOS 
         this.listaProductos.add(new Producto("Refresco",
                 "Refresco a elegir de entre nuesta gran variedad de bebidas burbujeantes",
-                2, CATEGORIA.bebidas, SUBCATEGORIA.refresco, 200, IVA.ivaRefrescosAlcohol));
+                2, CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Refresco, 200, IVA.ivaRefrescosAlcohol));
 
         this.listaProductos.add(new Producto("Café",
                 "Delicioso café arábico para los días fríos (o no tan fríos)",
-                1.60, CATEGORIA.bebidas, SUBCATEGORIA.bebidaCaliente, 100, IVA.ivaOtros));
+                1.60, CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.BebidaCaliente, 100, IVA.ivaOtros));
 
         this.listaProductos.add(new Producto("Cerveza", "Cerveza a elegir de entre nuestra gran variedad",
-                2.50, CATEGORIA.bebidas, SUBCATEGORIA.alcohol, 140, IVA.ivaRefrescosAlcohol));
+                2.50, CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Alcohol, 140, IVA.ivaRefrescosAlcohol));
 
         //POSTRES
         this.listaProductos.add(new Producto("Brownie de Chocolate y Avellanas",
                 "Un brownie denso y suculento con trozos de avellanas tostadas, acompañado de una bola de helado de vainilla.",
-                7, CATEGORIA.otros, SUBCATEGORIA.postres, 50, IVA.ivaOtros));
+                7, CATEGORIA.Otros, SUBCATEGORIAOTROS.Postres, 50, IVA.ivaOtros));
 
         this.listaProductos.add(new Producto("Helado Arcoíris",
                 "Una generosa porción de helado de vainilla con colorido jarabe de frutas, chispas de chocolate y crema",
-                4.50, CATEGORIA.otros, SUBCATEGORIA.postres, 75, IVA.ivaOtros));
+                4.50, CATEGORIA.Otros, SUBCATEGORIAOTROS.Postres, 75, IVA.ivaOtros));
 
         this.listaProductos.add(new Producto("Tarta de Chocolate y Caramelo Salado",
                 "Un bizcocho de chocolate con capas de caramelo salado y nueces, cubierto de chocolate",
-                5.50, CATEGORIA.otros, SUBCATEGORIA.postres, 20, IVA.ivaOtros));
+                5.50, CATEGORIA.Otros, SUBCATEGORIAOTROS.Postres, 20, IVA.ivaOtros));
 
         //OTROS
         this.listaProductos.add(new Producto("Ketchup",
                 "Ketchup del de toda la vida", 0.3,
-                CATEGORIA.otros, SUBCATEGORIA.otros, 300, IVA.ivaOtros));
+                CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros, 300, IVA.ivaOtros));
 
         this.listaProductos.add(new Producto("Mayonesa",
                 "Mayonesa de la de toda la vida", 0.3,
-                CATEGORIA.otros, SUBCATEGORIA.otros, 300, IVA.ivaOtros));
+                CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros, 300, IVA.ivaOtros));
 
         this.listaProductos.add(new Producto("Miel y mostaza",
                 "Deliciosa salsa con un toque dulce", 0.5,
-                CATEGORIA.otros, SUBCATEGORIA.otros, 100, IVA.ivaOtros));
+                CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros, 100, IVA.ivaOtros));
     }
 
     public ArrayList<TPV> getListaTPVs() {
@@ -139,6 +140,14 @@ public class BBDD {
 
     public ArrayList<Producto> getListaProductos() {
         return listaProductos;
+    }
+    
+    public ArrayList<Ticket> getListaTickects() {
+        return listaTickects;
+    }
+    
+    public void setListaTickects(ArrayList<Ticket> listaTickects) {
+        this.listaTickects = listaTickects;
     }
 
     public void setListaTPVs(ArrayList<TPV> listaTPVs) {
@@ -164,5 +173,5 @@ public class BBDD {
         return sb.toString();
     }
 
-    
+
 }

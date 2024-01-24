@@ -22,18 +22,21 @@ public class Producto {
     private String descripcion;
     private double precio;
     private CATEGORIA categoria;
-    private SUBCATEGORIA subcategoria;
+    private SUBCATEGORIAHAMBURGUESA subCategoriaH;
+    private SUBCATEGORIABEBIDA subCategoriaB;
+    private SUBCATEGORIAENTRANTE subCategoriaE;
+    private SUBCATEGORIAOTROS subCategoriaO;
     private int stock;
     private IVA iva;
 
     public Producto(String nomProducto, String descripcion, double precio,
-            CATEGORIA categoria, SUBCATEGORIA subcategoria, int stock, IVA iva) {
+            CATEGORIA categoria, SUBCATEGORIAHAMBURGUESA subcategoria, int stock, IVA iva) {
         this.nomProducto = nomProducto;
         this.descripcion = descripcion;
         this.iva = iva;
         this.precio = precio+(precio*this.iva.getValue());
         this.categoria = categoria;
-        this.subcategoria = subcategoria;
+        this.subCategoriaH = subcategoria;
         this.stock = stock;
         
         String aux = UUID.randomUUID().toString().toUpperCase();
@@ -43,7 +46,61 @@ public class Producto {
         Collections.shuffle(collect);
         this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
     }
-
+    
+    public Producto(String nomProducto, String descripcion, double precio,
+            CATEGORIA categoria, SUBCATEGORIABEBIDA subcategoria, int stock, IVA iva) {
+        this.nomProducto = nomProducto;
+        this.descripcion = descripcion;
+        this.iva = iva;
+        this.precio = precio+(precio*this.iva.getValue());
+        this.categoria = categoria;
+        this.subCategoriaB = subcategoria;
+        this.stock = stock;
+        
+        String aux = UUID.randomUUID().toString().toUpperCase();
+        Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
+        Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
+        List<Character> collect = Stream.concat(digit, alpha).collect(Collectors.toList());
+        Collections.shuffle(collect);
+        this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
+    }
+    
+    public Producto(String nomProducto, String descripcion, double precio,
+            CATEGORIA categoria, SUBCATEGORIAENTRANTE subcategoria, int stock, IVA iva) {
+        this.nomProducto = nomProducto;
+        this.descripcion = descripcion;
+        this.iva = iva;
+        this.precio = precio+(precio*this.iva.getValue());
+        this.categoria = categoria;
+        this.subCategoriaE = subcategoria;
+        this.stock = stock;
+        
+        String aux = UUID.randomUUID().toString().toUpperCase();
+        Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
+        Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
+        List<Character> collect = Stream.concat(digit, alpha).collect(Collectors.toList());
+        Collections.shuffle(collect);
+        this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
+    }
+    
+    public Producto(String nomProducto, String descripcion, double precio,
+            CATEGORIA categoria, SUBCATEGORIAOTROS subcategoria, int stock, IVA iva) {
+        this.nomProducto = nomProducto;
+        this.descripcion = descripcion;
+        this.iva = iva;
+        this.precio = precio+(precio*this.iva.getValue());
+        this.categoria = categoria;
+        this.subCategoriaO = subcategoria;
+        this.stock = stock;
+        
+        String aux = UUID.randomUUID().toString().toUpperCase();
+        Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
+        Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
+        List<Character> collect = Stream.concat(digit, alpha).collect(Collectors.toList());
+        Collections.shuffle(collect);
+        this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
+    }
+    
     public String getId() {
         return Id;
     }
@@ -64,8 +121,8 @@ public class Producto {
         return categoria;
     }
 
-    public SUBCATEGORIA getSubcategoria() {
-        return subcategoria;
+    public SUBCATEGORIAHAMBURGUESA getSubCategoriaH() {
+        return subCategoriaH;
     }
 
     public int getStock() {
@@ -92,8 +149,8 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public void setSubcategoria(SUBCATEGORIA subcategoria) {
-        this.subcategoria = subcategoria;
+    public void setSubCategoriaH(SUBCATEGORIAHAMBURGUESA subCategoriaH) {
+        this.subCategoriaH = subCategoriaH;
     }
 
     public void setStock(int stock) {
@@ -113,7 +170,7 @@ public class Producto {
         sb.append(", descripcion=").append(descripcion);
         sb.append(", precio=").append(precio);
         sb.append(", categoria=").append(categoria);
-        sb.append(", subcategoria=").append(subcategoria);
+        sb.append(", subcategoria=").append(subCategoriaH);
         sb.append(", stock=").append(stock);
         sb.append(", iva=").append(iva);
         sb.append('}');
