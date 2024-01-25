@@ -24,10 +24,17 @@ public class Main {
             int acceso = Programa.encenderTPV(maquina);
             switch (acceso) {
                 case 0 -> {
+                    do{
                     Ticket ticket = Programa.comoUsuario(maquina, baseDatos);
+                    if(ticket!=null){
+                        proceder=true;
+                    }else{
+                        proceder=false;
+                    }
+                    }while(proceder);
                 }
                 case 1 -> {
-                    proceder=Programa.comoAdministrador(maquina, baseDatos);
+                    proceder = Programa.comoAdministrador(maquina, baseDatos);
                 }
                 case 2-> {
                     proceder=false;

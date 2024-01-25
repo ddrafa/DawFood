@@ -47,7 +47,7 @@ public class Programa {
     public static Ticket comoUsuario(TPV maquina, BBDD baseDatos) {
         Carrito carrito = new Carrito();
         boolean permiso = false;
-        final String[] OPCIONESMENU = {"Catálogo de Productos", "Carrito", "Salir de la selección"};
+        final String[] OPCIONESMENU = {"Catálogo de Productos", "Carrito", "Salir"};
         int opcion = JOptionPane.showOptionDialog(null,
                 "¿Qué desea hacer?", "Acceder como Usuario",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
@@ -56,7 +56,7 @@ public class Programa {
 
             //caso de catálogo de productos
             case 0 -> {
-                Programa.catalogo(maquina, baseDatos, permiso);
+                Programa.catalogo(maquina, baseDatos);
 
             }
 
@@ -65,7 +65,7 @@ public class Programa {
             }
 
             case 2 -> {
-
+                return null;
             }
 
         }
@@ -75,7 +75,7 @@ public class Programa {
         return ticket;
     }
 
-    public static Producto catalogo(TPV maquina, BBDD baseDatos, boolean permiso) {
+    public static Producto catalogo(TPV maquina, BBDD baseDatos) {
         boolean repetir = true;
         String menu = """
                       ----------------------------------------------------
@@ -118,6 +118,7 @@ public class Programa {
             }
         } while (repetir);
     }
+    
     public static boolean comoAdministrador(TPV maquina, BBDD baseDatos) {
         boolean permiso = true;
         String password = JOptionPane.showInputDialog("Introduce la contraseña del TPV de " + maquina.getLocation() + ":");
@@ -147,12 +148,12 @@ public class Programa {
                 }
                 //Eliminar producto
                 case 2 -> {
-                    Producto p = Programa.catalogo(maquina, baseDatos, permiso);
+                    Producto p = Programa.catalogo(maquina, baseDatos);
                     Programa.eliminarProducto(baseDatos, p);
                 }
-                //Editar producto      
+                //Editar producto
                 case 3 -> {
-                    Programa.catalogo(maquina, baseDatos, permiso);
+                    Programa.catalogo(maquina, baseDatos);
                     
                 }
             }

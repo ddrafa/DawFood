@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * @author ddrafa
  */
 public class Producto {
-    
+
     //Atributos
     private final String Id;
     private String nomProducto;
@@ -28,18 +28,17 @@ public class Producto {
     private SUBCATEGORIAOTROS subCategoriaO;
     private int stock;
     private IVA iva;
-    
-   
+
     public Producto(String nomProducto, String descripcion, double precio,
             CATEGORIA categoria, SUBCATEGORIAHAMBURGUESA subcategoria, int stock, IVA iva) {
         this.nomProducto = nomProducto;
         this.descripcion = descripcion;
         this.iva = iva;
-        this.precio = precio+(precio*this.iva.getValue());
+        this.precio = precio + (precio * this.iva.getValue());
         this.categoria = categoria;
         this.subCategoriaH = subcategoria;
         this.stock = stock;
-        
+
         String aux = UUID.randomUUID().toString().toUpperCase();
         Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
         Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
@@ -47,17 +46,17 @@ public class Producto {
         Collections.shuffle(collect);
         this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
     }
-    
+
     public Producto(String nomProducto, String descripcion, double precio,
             CATEGORIA categoria, SUBCATEGORIABEBIDA subcategoria, int stock, IVA iva) {
         this.nomProducto = nomProducto;
         this.descripcion = descripcion;
         this.iva = iva;
-        this.precio = precio+(precio*this.iva.getValue());
+        this.precio = precio + (precio * this.iva.getValue());
         this.categoria = categoria;
         this.subCategoriaB = subcategoria;
         this.stock = stock;
-        
+
         String aux = UUID.randomUUID().toString().toUpperCase();
         Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
         Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
@@ -65,17 +64,17 @@ public class Producto {
         Collections.shuffle(collect);
         this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
     }
-    
+
     public Producto(String nomProducto, String descripcion, double precio,
             CATEGORIA categoria, SUBCATEGORIAENTRANTE subcategoria, int stock, IVA iva) {
         this.nomProducto = nomProducto;
         this.descripcion = descripcion;
         this.iva = iva;
-        this.precio = precio+(precio*this.iva.getValue());
+        this.precio = precio + (precio * this.iva.getValue());
         this.categoria = categoria;
         this.subCategoriaE = subcategoria;
         this.stock = stock;
-        
+
         String aux = UUID.randomUUID().toString().toUpperCase();
         Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
         Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
@@ -83,17 +82,17 @@ public class Producto {
         Collections.shuffle(collect);
         this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
     }
-    
+
     public Producto(String nomProducto, String descripcion, double precio,
             CATEGORIA categoria, SUBCATEGORIAOTROS subcategoria, int stock, IVA iva) {
         this.nomProducto = nomProducto;
         this.descripcion = descripcion;
         this.iva = iva;
-        this.precio = precio+(precio*this.iva.getValue());
+        this.precio = precio + (precio * this.iva.getValue());
         this.categoria = categoria;
         this.subCategoriaO = subcategoria;
         this.stock = stock;
-        
+
         String aux = UUID.randomUUID().toString().toUpperCase();
         Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
         Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
@@ -101,7 +100,7 @@ public class Producto {
         Collections.shuffle(collect);
         this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
     }
-    
+
     public String getId() {
         return Id;
     }
@@ -132,6 +131,30 @@ public class Producto {
 
     public IVA getIva() {
         return iva;
+    }
+
+    public SUBCATEGORIABEBIDA getSubCategoriaB() {
+        return subCategoriaB;
+    }
+
+    public SUBCATEGORIAENTRANTE getSubCategoriaE() {
+        return subCategoriaE;
+    }
+
+    public SUBCATEGORIAOTROS getSubCategoriaO() {
+        return subCategoriaO;
+    }
+
+    public void setSubCategoriaB(SUBCATEGORIABEBIDA subCategoriaB) {
+        this.subCategoriaB = subCategoriaB;
+    }
+
+    public void setSubCategoriaE(SUBCATEGORIAENTRANTE subCategoriaE) {
+        this.subCategoriaE = subCategoriaE;
+    }
+
+    public void setSubCategoriaO(SUBCATEGORIAOTROS subCategoriaO) {
+        this.subCategoriaO = subCategoriaO;
     }
 
     public void setNomProducto(String nomProducto) {
@@ -177,7 +200,5 @@ public class Producto {
         sb.append('}');
         return sb.toString();
     }
-    
-    
-    
+
 }
