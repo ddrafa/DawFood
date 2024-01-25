@@ -15,19 +15,25 @@ public class Main {
     public static void main(String[] args) {
 
         boolean proceder = true;
-        BBDD baseDatos = new BBDD();
-        System.out.println(baseDatos.toString());
-        TPV maquina = Programa.elegirTPV(baseDatos);
+        
+            BBDD baseDatos = new BBDD();
+            System.out.println(baseDatos.toString());
+        do {
+            TPV maquina = Programa.elegirTPV(baseDatos);
 
-        int acceso = Programa.encenderTPV(maquina);
-        switch (acceso) {
-            case 0 -> {
-                Ticket ticket = Programa.comoUsuario(maquina, baseDatos);
+            int acceso = Programa.encenderTPV(maquina);
+            switch (acceso) {
+                case 0 -> {
+                    Ticket ticket = Programa.comoUsuario(maquina, baseDatos);
+                }
+                case 1 -> {
+                    proceder=Programa.comoAdministrador(maquina, baseDatos);
+                }
+                case 2-> {
+                    proceder=false;
+                }
             }
-            case 1 -> {
-                Programa.comoAdministrador(maquina, baseDatos);
-            }
-        }
+        } while (proceder);
         JOptionPane.showMessageDialog(null, "Nos vemos pronto :D");
     }
 }

@@ -51,35 +51,75 @@ public class Programa {
                 "¿Qué desea hacer?", "Acceder como Usuario",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                 OPCIONESMENU, OPCIONESMENU[0]);
-           switch (opcion) {
+        switch (opcion) {
 
-               //caso de catálogo de productos
-                case 0 -> {
-                    Programa.catalogo(maquina, baseDatos, permiso);
-                    
-                }
+            //caso de catálogo de productos
+            case 0 -> {
+                MiPrograma.catalogo(maquina, baseDatos, permiso);
 
-                case 1 -> {
-
-                }
-
-                case 2 -> {
-
-                }
-               
             }
-        
+
+            case 1 -> {
+
+            }
+
+            case 2 -> {
+
+            }
+
+        }
+
         //El ticket se debe crear despues de haber agregado o eliminido todos los productos del carrito
         Ticket ticket = new Ticket(carrito);
         return ticket;
     }
-    
-    public static void catalogo(TPV maquina, BBDD baseDatos, boolean permiso){
-        baseDatos.getListaProductos().toString();
-        
+
+    public static void catalogo(TPV maquina, BBDD baseDatos, boolean permiso) {
+        boolean repetir = true;
+        String menu = """
+                      ----------------------------------------------------
+                                            Menu
+                      ----------------------------------------------------
+                      """;
+        do {
+            int opcion = JOptionPane.showOptionDialog(null,
+                    menu, "Menu",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                    CATEGORIA.values(), CATEGORIA.Hamburguesas);
+            switch (opcion) {
+                case 0 -> {
+                    int subOpcion = JOptionPane.showOptionDialog(null,
+                            menu, "SubMenu",
+                            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                            SUBCATEGORIAHAMBURGUESA.values(), SUBCATEGORIAHAMBURGUESA.Pollo);
+                }
+                case 1 -> {
+                    int subOpcion = JOptionPane.showOptionDialog(null,
+                            menu, "SubMenu",
+                            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                            SUBCATEGORIAENTRANTE.values(), SUBCATEGORIAENTRANTE.Fritos);
+                }
+                case 2 -> {
+                    int subOpcion = JOptionPane.showOptionDialog(null,
+                            menu, "SubMenu",
+                            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                            SUBCATEGORIABEBIDA.values(), SUBCATEGORIABEBIDA.Refresco);
+                }
+                case 3 -> {
+                    int subOpcion = JOptionPane.showOptionDialog(null,
+                            menu, "SubMenu",
+                            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                            SUBCATEGORIAOTROS.values(), SUBCATEGORIAOTROS.Postres);
+                }
+                case 4 -> {
+                    repetir = false;
+                }
+            }
+        } while (repetir);
+
     }
 
-    public static void comoAdministrador(TPV maquina, BBDD baseDatos) {
+    public static boolean comoAdministrador(TPV maquina, BBDD baseDatos) {
         boolean permiso = true;
         String password = JOptionPane.showInputDialog("Introduce la contraseña del TPV de " + maquina.getLocation() + ":");
         if (maquina.getPassword().equals(password)) {
@@ -92,8 +132,8 @@ public class Programa {
             switch (opcion) {
 
                 case 0 -> {
-                    Programa.catalogo(maquina, baseDatos, permiso);
-                    
+                    MiPrograma.catalogo(maquina, baseDatos, permiso);
+
                 }
 
                 case 1 -> {
@@ -103,28 +143,30 @@ public class Programa {
                 case 2 -> {
 
                 }
-              
+
             }
+            return true;
         } else {
-            System.out.println("Contraseña incorrecta");
+            JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+            return false;
         }
 
     }
-    
-    public static void agregarProducto(){
-        
+
+    public static void agregarProducto() {
+
     }
-    
-    public static void eliminarProducto(){
-        
+
+    public static void eliminarProducto() {
+
     }
-    
-    public static void guardarTarjeta(){
-        
+
+    public static void guardarTarjeta() {
+
     }
-    
-    public static void modificarProducto(){
-        
+
+    public static void modificarProducto() {
+
     }
 }
 
