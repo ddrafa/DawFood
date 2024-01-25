@@ -28,7 +28,8 @@ public class Producto {
     private SUBCATEGORIAOTROS subCategoriaO;
     private int stock;
     private IVA iva;
-
+    
+   
     public Producto(String nomProducto, String descripcion, double precio,
             CATEGORIA categoria, SUBCATEGORIAHAMBURGUESA subcategoria, int stock, IVA iva) {
         this.nomProducto = nomProducto;
