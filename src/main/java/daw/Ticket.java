@@ -20,6 +20,7 @@ public class Ticket {
 
 //Atributos de Ticket
     private final String ID;
+    private int numPedido;
     private final double Total;
     private final ArrayList<Producto> listaProductos;
     private final LocalDateTime fechaTicket = LocalDateTime.now();
@@ -42,6 +43,14 @@ public class Ticket {
         return listaProductos;
     }
 
+    public int getNumPedido() {
+        return numPedido;
+    }
+
+    public void setNumPedido(int numPedido) {
+        this.numPedido = numPedido;
+    }
+
     public void setTarjeta(Tarjeta tarjeta) {
         this.tarjeta = tarjeta;
     }
@@ -56,16 +65,20 @@ public class Ticket {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("-------------------------------------------------").append("\n");
-        sb.append("Ticket:").append("\n");
+        sb.append("Ticket: ").append("\n");
+        sb.append(numPedido).append("\n");
         sb.append("-------------------------------------------------").append("\n");
         for (int i = 0; i < listaProductos.size();i++) {
-            sb.append(i + 1).append(".- ").append(listaProductos.get(i))
-                    .append("----").append(listaProductos.get(i).getNomProducto()).append("\n");
+            sb.append(i + 1).append(".- ")
+                    .append(listaProductos.get(i).getNomProducto()).append("----")
+                    .append(listaProductos.get(i).getPrecio()).append("€").append("\n");
         }
         sb.append("-------------------------------------------------").append("\n");
         sb.append("Total: ").append(Total).append("\n");
         sb.append("-------------------------------------------------").append("\n");
-        sb.append("Fecha: ").append(fechaTicket).append("\n");
+        sb.append("Fecha: ").append(fechaTicket.getDayOfMonth()).append("-")
+                .append(fechaTicket.getMonthValue()).append("-")
+                .append(fechaTicket.getYear()).append("\n");
         sb.append("-------------------------------------------------").append("\n");
         sb.append("Tarjeta con la que se ha realizado el pago: ").append(tarjeta.getNumeroTarjeta());
         return sb.toString();

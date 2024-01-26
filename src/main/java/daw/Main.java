@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
 
         boolean proceder = true;
-        
+        int pedido = 1;
             BBDD baseDatos = new BBDD();
             System.out.println(baseDatos.toString());
         do {
@@ -27,6 +27,7 @@ public class Main {
                     do{
                     Ticket ticket = Programa.comoUsuario(maquina, baseDatos);
                     if(ticket!=null){
+                        ticket.setNumPedido(pedido);
                         JOptionPane.showMessageDialog(null,ticket.toString());
                         proceder=false;
                     }else{
@@ -34,6 +35,7 @@ public class Main {
                     }
                     }while(proceder);
                     proceder=true;
+                    pedido++;
                 }
                 case 1 -> {
                     do{
