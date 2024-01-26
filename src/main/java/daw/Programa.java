@@ -609,21 +609,24 @@ public class Programa {
                     //Descripción
                     case 1 -> {
                         String descNueva = JOptionPane.showInputDialog("Escriba la nueva descripción del producto: ");
-
+                        producto.setDescripcion(descNueva);
                     }
                     //Stock
                     case 2 -> {
                         int stockNuevo = Integer.parseInt((JOptionPane.showInputDialog("Escriba el nuevo stock del producto: ")));
-
+                        producto.setStock(stockNuevo);
                     }
                     //Precio
                     case 3 -> {
                         double precioNuevo = Double.parseDouble((JOptionPane.showInputDialog("Escriba el nuevo precio del producto: ")));
-
+                        producto.setPrecio(precioNuevo);
                     }
                     //Categoría
                     case 4 -> {
-
+                        String nuevaCategoria = JOptionPane.showInputDialog("Escriba la nueva categoría: ");
+                                if (nuevaCategoria.equals("Hamburguesas")){
+                                    producto.setCategoria(CATEGORIA.Hamburguesas);
+                                } 
                     }
                     //Subcategoría
                     case 5 -> {
