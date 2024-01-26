@@ -92,7 +92,7 @@ public class Programa {
                 }
 
                 case 2 -> {
-                   return null;
+                    return null;
                 }
 
             }
@@ -623,10 +623,21 @@ public class Programa {
                     }
                     //Categoría
                     case 4 -> {
-                        String nuevaCategoria = JOptionPane.showInputDialog("Escriba la nueva categoría: ");
-                                if (nuevaCategoria.equals("Hamburguesas")){
-                                    producto.setCategoria(CATEGORIA.Hamburguesas);
-                                } 
+                        boolean proseguir = true;
+                        do {
+                            String nuevaCategoria = JOptionPane.showInputDialog("Escriba la nueva categoría del producto: ").toLowerCase();
+                            switch (nuevaCategoria) {
+                                case "hamburguesas" -> producto.setCategoria(CATEGORIA.Hamburguesas);
+                                case "entrantes" -> producto.setCategoria(CATEGORIA.Entrantes);
+                                case "bebidas" -> producto.setCategoria(CATEGORIA.Bebidas);
+                                case "otros" -> producto.setCategoria(CATEGORIA.Otros);
+                                default -> {
+                                    proseguir = false;
+                                    JOptionPane.showMessageDialog(null, "Asegurate de introducir una categoría válida (Hamburguesas, Entrantes, Bebidas, Otros) ");
+                                }
+                            }
+
+                        } while (proseguir);
                     }
                     //Subcategoría
                     case 5 -> {
