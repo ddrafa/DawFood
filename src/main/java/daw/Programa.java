@@ -4,7 +4,8 @@
  */
 package daw;
 
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -46,32 +47,115 @@ public class Programa {
 
     public static Ticket comoUsuario(TPV maquina, BBDD baseDatos) {
         Carrito carrito = new Carrito();
-        boolean permiso = false;
-        final String[] OPCIONESMENU = {"Catálogo de Productos", "Carrito", "Salir"};
-        int opcion = JOptionPane.showOptionDialog(null,
-                "¿Qué desea hacer?", "Acceder como Usuario",
-                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                OPCIONESMENU, OPCIONESMENU[0]);
-        switch (opcion) {
+        boolean proceder = true;
+        do {
+            final String[] OPCIONESMENU = {"Catálogo de Productos", "Carrito", "Salir"};
+            int opcion = JOptionPane.showOptionDialog(null,
+                    "¿Qué desea hacer?", "Acceder como Usuario",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                    OPCIONESMENU, OPCIONESMENU[0]);
+            switch (opcion) {
 
-            //caso de catálogo de productos
-            case 0 -> {
-                Programa.catalogo(maquina, baseDatos);
+                //caso de catálogo de productos
+                case 0 -> {
+                    Producto producto = Programa.catalogo(maquina, baseDatos);
+                    if (!(producto.getNomProducto().equalsIgnoreCase("NaN"))) {
+                        final String[] OPCIONCANT = {" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "};
+                        int cantidad = JOptionPane.showOptionDialog(null,
+                                "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
+                                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                OPCIONCANT, OPCIONCANT[0]);
+                        for (int i = 0; i <= cantidad; i++) {
+                            carrito.agregarProducto(producto);
+                        }
+                    }
+                }
+
+                case 1 -> {
+                    if (carrito.getListaSeleccionados().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "El carrito está vacío");
+                    } else {
+                        final String[] OPCIONESCARRITO = {"Ver Carrito", "Pagar", "Volver"};
+                        int optCarrito = JOptionPane.showOptionDialog(null,
+                                "¿Qué desea hacer con el carrito?", "Carrito",
+                                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                OPCIONESCARRITO, OPCIONESCARRITO[0]);
+                        switch (optCarrito) {
+                            case 0 -> {
+                                Programa.gestionarCarrito(carrito);
+                            }
+                            case 1 -> {
+                                proceder = false;
+                            }
+                        }
+                    }
+                }
+
+                case 2 -> {
+                    //Opción de Salir
+                    return null;
+                }
 
             }
-
-            case 1 -> {
-
-            }
-
-            case 2 -> {
-                return null;
-            }
-
-        }
-
+        } while (proceder);
         //El ticket se debe crear despues de haber agregado o eliminido todos los productos del carrito
-        Ticket ticket = new Ticket(carrito);
+        Ticket ticket = Programa.pagar(baseDatos, carrito);
+        return ticket;
+    }
+
+    public static void gestionarCarrito(Carrito carrito) {
+        final String[] OPCIONESCARRITO = {"Eliminar Producto", "Volver"};
+        int optCarrito = JOptionPane.showOptionDialog(null,
+                carrito.toString(), "Ver Carrito",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                OPCIONESCARRITO, OPCIONESCARRITO[0]);
+        switch (optCarrito) {
+            case 0 -> {
+
+                ArrayList<String> listaProductos = new ArrayList<>();
+                for (Producto selected : carrito.getListaSeleccionados()) {
+                    listaProductos.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                }
+                String eliminar = (String) JOptionPane.showInputDialog(null,
+                        "¿cuál quieres eliminar?", "eliminar producto del carrito", JOptionPane.QUESTION_MESSAGE,
+                        null, listaProductos.toArray(), listaProductos.get(0));
+                for (Producto selected : carrito.getListaSeleccionados()) {
+                    if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase((eliminar))) {
+                        carrito.eliminarProducto(selected);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public static Ticket pagar(BBDD baseDatos, Carrito carrito) {
+        boolean proceder = true;
+        int digitos = 1111;
+        final double TOTAL = carrito.precioTotal();
+        Ticket ticket = new Ticket(carrito, TOTAL);
+        do {
+            try {
+                digitos = Integer.parseInt(JOptionPane.showInputDialog("Inserta los 4 últimos dígitos de tú tarjeta\nTotal: " + TOTAL + "€"));
+                for (int i = 0; i < baseDatos.getListaTarjetas().size(); i++) {
+                    if (baseDatos.getListaTarjetas().get(i).getNumeroTarjeta() != (digitos)) {
+                        JOptionPane.showMessageDialog(null, 
+                                "ERROR LA TARJETA QUE HA INSERTADO NO EXISTE, PRUEBE OTRA");
+                    } else {
+                        if (TOTAL > baseDatos.getListaTarjetas().get(i).getSaldo()) {
+                            JOptionPane.showMessageDialog(null, 
+                                    "ERROR LA TARJETA QUE HA INSERTADO NO TIENE SUFICIENTE SALDO, INSERTE OTRA");
+                        } else {
+                            ticket.setTarjeta(baseDatos.getListaTarjetas().get(i));
+                            baseDatos.agregarTickets(ticket);
+                            return ticket;
+                        }
+                    }
+                }
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "ERROR PRUEBA DE NUEVO, ASEGURATE DE ESCRIBIR NÚMEROS");
+            }
+        } while (proceder);
         return ticket;
     }
 
@@ -93,37 +177,270 @@ public class Programa {
                             menu, "SubMenu",
                             JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                             SUBCATEGORIAHAMBURGUESA.values(), SUBCATEGORIAHAMBURGUESA.Pollo);
+//HAMBURGUESAS-HAMBURGUESAS-HAMBURGUESAS-HAMBURGUESAS-HAMBURGUESAS-HAMBURGUESAS-HAMBURGUESAS-HAMBURGUESAS-HAMBURGUESAS-HAMBURGUESAS-HAMBURGUESAS
+                    switch (subOpcion) {
+                        case 0 -> {
+                            //Lista con nombre de las hamburguesas de pollo
+                            ArrayList<String> listaPollos = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaH() == (SUBCATEGORIAHAMBURGUESA.Pollo)) {
+                                    listaPollos.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaPollos.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaPollos.toArray(), listaPollos.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaPollos.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                        case 1 -> {
+                            //Lista con nombre de las hamburguesas de parrilla
+                            ArrayList<String> listaParrillas = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaH() == (SUBCATEGORIAHAMBURGUESA.Parrilla)) {
+                                    listaParrillas.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaParrillas.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaParrillas.toArray(), listaParrillas.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaParrillas.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                        case 2 -> {
+                            //Lista con nombre de las hamburguesas de vegetal
+                            ArrayList<String> listaVegetales = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaH() == (SUBCATEGORIAHAMBURGUESA.Vegetal)) {
+                                    listaVegetales.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaVegetales.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaVegetales.toArray(), listaVegetales.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaVegetales.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                    }
                 }
                 case 1 -> {
                     int subOpcion = JOptionPane.showOptionDialog(null,
                             menu, "SubMenu",
                             JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                             SUBCATEGORIAENTRANTE.values(), SUBCATEGORIAENTRANTE.Fritos);
+//ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES
+                    switch (subOpcion) {
+                        case 0 -> {
+                            //Lista con nombre de los entrantes de ensalada
+                            ArrayList<String> listaEnsaladas = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaE() == (SUBCATEGORIAENTRANTE.Ensalada)) {
+                                    listaEnsaladas.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaEnsaladas.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaEnsaladas.toArray(), listaEnsaladas.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaEnsaladas.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                        case 1 -> {
+                            //Lista con nombre de los entrantes de frito
+                            ArrayList<String> listaFritos = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaE() == (SUBCATEGORIAENTRANTE.Fritos)) {
+                                    listaFritos.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaFritos.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaFritos.toArray(), listaFritos.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaFritos.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                    }
                 }
+
                 case 2 -> {
                     int subOpcion = JOptionPane.showOptionDialog(null,
                             menu, "SubMenu",
                             JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                             SUBCATEGORIABEBIDA.values(), SUBCATEGORIABEBIDA.Refresco);
+//BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS
+                    switch (subOpcion) {
+                        case 0 -> {
+                            //Lista con nombre de las bebidas de alcohol
+                            ArrayList<String> listaAlcoholes = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaB() == (SUBCATEGORIABEBIDA.Alcohol)) {
+                                    listaAlcoholes.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaAlcoholes.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaAlcoholes.toArray(), listaAlcoholes.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaAlcoholes.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                        case 1 -> {
+                            //Lista con nombre de las bebidas de refresco
+                            ArrayList<String> listaRefrescos = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaB() == (SUBCATEGORIABEBIDA.Refresco)) {
+                                    listaRefrescos.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaRefrescos.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaRefrescos.toArray(), listaRefrescos.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaRefrescos.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                        case 2 -> {
+                            //Lista con nombre de las bebidas calientes
+                            ArrayList<String> listaCalientes = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaB() == (SUBCATEGORIABEBIDA.BebidaCaliente)) {
+                                    listaCalientes.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaCalientes.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaCalientes.toArray(), listaCalientes.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaCalientes.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                        case 3 -> {
+                            //Lista con nombre de las bebidas agua
+                            ArrayList<String> listaAguas = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaB() == (SUBCATEGORIABEBIDA.Aguas)) {
+                                    listaAguas.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaAguas.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaAguas.toArray(), listaAguas.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaAguas.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                    }
                 }
                 case 3 -> {
                     int subOpcion = JOptionPane.showOptionDialog(null,
                             menu, "SubMenu",
                             JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                             SUBCATEGORIAOTROS.values(), SUBCATEGORIAOTROS.Postres);
+//OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS-OTROS
+                    switch (subOpcion) {
+                        case 0 -> {
+                            //Lista con nombre de los postres
+                            ArrayList<String> listaPostres = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaO() == (SUBCATEGORIAOTROS.Postres)) {
+                                    listaPostres.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaPostres.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaPostres.toArray(), listaPostres.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaPostres.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                        case 1 -> {
+                            //Lista con nombre de los otros
+                            ArrayList<String> listaOtros = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaO() == (SUBCATEGORIAOTROS.Otros)) {
+                                    listaOtros.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaOtros.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaOtros.toArray(), listaOtros.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaOtros.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                    }
                 }
                 case 4 -> {
                     repetir = false;
                 }
             }
         } while (repetir);
+        return new Producto("NaN", "NaN", 0, CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros, 0, IVA.ivaOtros);
     }
-    
+
     public static boolean comoAdministrador(TPV maquina, BBDD baseDatos) {
-        boolean permiso = true;
         String password = JOptionPane.showInputDialog("Introduce la contraseña del TPV de " + maquina.getLocation() + ":");
         if (maquina.getPassword().equals(password)) {
-            final String[] OPCIONESMENU = {"Añadir Producto", "Consultar Ventas", "Eliminar producto", "Editar producto", "Salir de la selección"};
+            final String[] OPCIONESMENU = {"Añadir Producto", "Consultar Ventas", "Eliminar producto", "Editar producto", "Salir"};
             int opcion = JOptionPane.showOptionDialog(null,
                     "¿Qué tarea desea realizar?", "Acceder como Admin",
                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
@@ -132,15 +449,15 @@ public class Programa {
             switch (opcion) {
                 //Añadir producto
                 case 0 -> {
-                 
+
                     final String[] OPCIONANADIR = {"Hamburguesa Pollo", "Hamburguesa Parrilla", "Hamburguesa Vegetal",
-                        "Entrante Frito", "Entrante Ensalada ", "Bebida Alcoholica","Bebida Refresco", "Bebida Caliente", "Postres", "Otros"};
+                        "Entrante Frito", "Entrante Ensalada ", "Bebida Alcoholica", "Bebida Refresco", "Bebida Caliente", "Postres", "Otros"};
                     int clave = JOptionPane.showOptionDialog(null,
                             "¿Qué tarea desea realizar?", "Acceder como Admin",
                             JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                             OPCIONESMENU, OPCIONESMENU[0]);
                     Programa.agregarProducto(baseDatos, clave);
-                  
+
                 }
                 //Consultar ventas
                 case 1 -> {
@@ -154,7 +471,10 @@ public class Programa {
                 //Editar producto
                 case 3 -> {
                     Programa.catalogo(maquina, baseDatos);
-                    
+
+                }
+                case 4 -> {
+                    return false;
                 }
             }
             return true;
@@ -173,83 +493,78 @@ public class Programa {
                     Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Parrilla,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
-         if (clave == 2) {
+        if (clave == 2) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
                     Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Pollo,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
-          if (clave == 3) {
+        if (clave == 3) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
                     Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Vegetal,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
-           if (clave == 4) {
+        if (clave == 4) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
                     Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Fritos,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
-            if (clave == 5) {
+        if (clave == 5) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
                     Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Ensalada,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
-            
-         
+
         }
-             if (clave == 6) {
+        if (clave == 6) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
                     Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Alcohol,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaRefrescosAlcohol));
-            
-         
+
         }
-                if (clave == 7) {
+        if (clave == 7) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
                     Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Refresco,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaRefrescosAlcohol));
-            
-         
+
         }
-              if (clave == 8) {
+        if (clave == 8) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
                     Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.BebidaCaliente,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
-            
-         
+
         }
-               if (clave == 9) {
+        if (clave == 9) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
                     Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Otros, SUBCATEGORIAOTROS.Postres,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
-            
-         
+
         }
-                if (clave == 10) {
+        if (clave == 10) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Otros,  SUBCATEGORIAOTROS.Otros,
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
-            
-         
+
         }
-         
+
     }
+
     public static void eliminarProducto(BBDD baseDatos, Producto producto) {
         final String[] OPCIONESMENU = {"Aceptar", "Cancelar"};
         int opcion = JOptionPane.showOptionDialog(null,

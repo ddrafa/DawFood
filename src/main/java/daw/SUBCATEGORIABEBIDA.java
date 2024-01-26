@@ -10,7 +10,7 @@ package daw;
  */
 public enum SUBCATEGORIABEBIDA {
     //subcategorías bebidas
-    Refresco, Alcohol, BebidaCaliente,
+    Refresco, Alcohol, BebidaCaliente, Aguas,
     //volver
     Volver
 }

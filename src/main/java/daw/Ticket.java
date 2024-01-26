@@ -20,12 +20,12 @@ public class Ticket {
 
 //Atributos de Ticket
     private final String ID;
-    private double Total;
+    private final double Total;
     private final ArrayList<Producto> listaProductos;
-    private LocalDateTime fechaTicket = LocalDateTime.now();
+    private final LocalDateTime fechaTicket = LocalDateTime.now();
     private Tarjeta tarjeta;
 //El constructor está compuesto solo por la lista del carrito y un id propio de 5 digitos
-    public Ticket(Carrito carrito) {
+    public Ticket(Carrito carrito, double total) {
         this.listaProductos=carrito.getListaSeleccionados();
         
         String aux = UUID.randomUUID().toString().toUpperCase();
@@ -34,18 +34,20 @@ public class Ticket {
         List<Character> collect = Stream.concat(digit, alpha).collect(Collectors.toList());
         Collections.shuffle(collect);
         this.ID = collect.stream().map(Object::toString).collect(Collectors.joining());
+        
+        this.Total = total;
     }
 
     public ArrayList<Producto> getlistaProductos() {
         return listaProductos;
     }
 
-    public double getTotal() {
-        return Total;
+    public void setTarjeta(Tarjeta tarjeta) {
+        this.tarjeta = tarjeta;
     }
 
-    public void setTotal(double Total) {
-        this.Total = Total;
+    public double getTotal() {
+        return Total;
     }
     
     
@@ -61,9 +63,9 @@ public class Ticket {
                     .append("----").append(listaProductos.get(i).getNomProducto()).append("\n");
         }
         sb.append("-------------------------------------------------").append("\n");
-        sb.append(", Total=").append(Total);
+        sb.append("Total: ").append(Total).append("\n");
         sb.append("-------------------------------------------------").append("\n");
-        sb.append("Fecha: ").append(fechaTicket);
+        sb.append("Fecha: ").append(fechaTicket).append("\n");
         sb.append("-------------------------------------------------").append("\n");
         sb.append("Tarjeta con la que se ha realizado el pago: ").append(tarjeta.getNumeroTarjeta());
         return sb.toString();

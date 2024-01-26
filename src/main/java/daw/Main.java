@@ -27,14 +27,19 @@ public class Main {
                     do{
                     Ticket ticket = Programa.comoUsuario(maquina, baseDatos);
                     if(ticket!=null){
-                        proceder=true;
-                    }else{
+                        JOptionPane.showMessageDialog(null,ticket.toString());
                         proceder=false;
+                    }else{
+                        proceder=true;
                     }
                     }while(proceder);
+                    proceder=true;
                 }
                 case 1 -> {
+                    do{
                     proceder = Programa.comoAdministrador(maquina, baseDatos);
+                    }while(proceder);
+                    proceder=true;
                 }
                 case 2-> {
                     proceder=false;

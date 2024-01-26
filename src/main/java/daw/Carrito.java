@@ -30,12 +30,29 @@ public class Carrito {
     }
     
     public void eliminarProducto(Producto p) {
-        listaSeleccionados.remove(p);
+        listaSeleccionados.remove(listaSeleccionados.indexOf(p));
+    }
+
+    public double precioTotal() {
+        double acum=0;
+        for(Producto p : listaSeleccionados){
+            acum+=p.getPrecio();
+        }
+        return acum;
     }
     
-    public void masProducto(Producto p, int cuantos) {
-        for(int i = 1;i<=cuantos;i++){
-        listaSeleccionados.add(p);
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Carrito:").append("\n");
+        for(int i = 0;i<listaSeleccionados.size();i++){
+            sb.append(i+1).append(".- ")
+                    .append(listaSeleccionados.get(i).getNomProducto())
+                    .append(" ").append(listaSeleccionados.get(i)
+                            .getPrecio()).append("€").append("\n");
         }
+        return sb.toString();
     }
+    
+    
 }

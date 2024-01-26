@@ -102,6 +102,9 @@ public class BBDD {
 
         this.listaProductos.add(new Producto("Cerveza", "Cerveza a elegir de entre nuestra gran variedad",
                 2.50, CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Alcohol, 140, IVA.ivaRefrescosAlcohol));
+        
+        this.listaProductos.add(new Producto("Agua", "Awita refrescante",
+                0.50, CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Aguas, 300, IVA.ivaOtros));
 
         //POSTRES
         this.listaProductos.add(new Producto("Brownie de Chocolate y Avellanas",
@@ -157,7 +160,7 @@ public class BBDD {
     public void setListaTarjetas(ArrayList<Tarjeta> listaTarjetas) {
         this.listaTarjetas = listaTarjetas;
     }
-
+    
     public void setListaProductos(ArrayList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
     }
@@ -173,5 +176,7 @@ public class BBDD {
         return sb.toString();
     }
 
-
+    public void agregarTickets(Ticket t) {
+        listaTickects.add(t);
+    }
 }
