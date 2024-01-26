@@ -92,8 +92,7 @@ public class Programa {
                 }
 
                 case 2 -> {
-                    //Opción de Salir
-                    return null;
+                   return null;
                 }
 
             }
@@ -117,7 +116,7 @@ public class Programa {
                     listaProductos.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
                 }
                 String eliminar = (String) JOptionPane.showInputDialog(null,
-                        "¿cuál quieres eliminar?", "eliminar producto del carrito", JOptionPane.QUESTION_MESSAGE,
+                        "¿Cuál quieres eliminar?", "Eliminar producto del carrito", JOptionPane.QUESTION_MESSAGE,
                         null, listaProductos.toArray(), listaProductos.get(0));
                 for (Producto selected : carrito.getListaSeleccionados()) {
                     if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase((eliminar))) {
@@ -139,12 +138,12 @@ public class Programa {
                 digitos = Integer.parseInt(JOptionPane.showInputDialog("Inserta los 4 últimos dígitos de tú tarjeta\nTotal: " + TOTAL + "€"));
                 for (int i = 0; i < baseDatos.getListaTarjetas().size(); i++) {
                     if (baseDatos.getListaTarjetas().get(i).getNumeroTarjeta() != (digitos)) {
-                        JOptionPane.showMessageDialog(null, 
-                                "ERROR LA TARJETA QUE HA INSERTADO NO EXISTE, PRUEBE OTRA");
+                        JOptionPane.showMessageDialog(null,
+                                "ERROR, LA TARJETA QUE HA INSERTADO NO EXISTE, PRUEBE OTRA");
                     } else {
                         if (TOTAL > baseDatos.getListaTarjetas().get(i).getSaldo()) {
-                            JOptionPane.showMessageDialog(null, 
-                                    "ERROR LA TARJETA QUE HA INSERTADO NO TIENE SUFICIENTE SALDO, INSERTE OTRA");
+                            JOptionPane.showMessageDialog(null,
+                                    "ERROR, LA TARJETA QUE HA INSERTADO NO TIENE SUFICIENTE SALDO, INSERTE OTRA");
                         } else {
                             ticket.setTarjeta(baseDatos.getListaTarjetas().get(i));
                             baseDatos.agregarTickets(ticket);
@@ -153,7 +152,7 @@ public class Programa {
                     }
                 }
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "ERROR PRUEBA DE NUEVO, ASEGURATE DE ESCRIBIR NÚMEROS");
+                JOptionPane.showMessageDialog(null, "ERROR. PRUEBA DE NUEVO, ASEGURATE DE ESCRIBIR NÚMEROS");
             }
         } while (proceder);
         return ticket;
@@ -440,43 +439,46 @@ public class Programa {
     public static boolean comoAdministrador(TPV maquina, BBDD baseDatos) {
         String password = JOptionPane.showInputDialog("Introduce la contraseña del TPV de " + maquina.getLocation() + ":");
         if (maquina.getPassword().equals(password)) {
-            final String[] OPCIONESMENU = {"Añadir Producto", "Consultar Ventas", "Eliminar producto", "Editar producto", "Salir"};
-            int opcion = JOptionPane.showOptionDialog(null,
-                    "¿Qué tarea desea realizar?", "Acceder como Admin",
-                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                    OPCIONESMENU, OPCIONESMENU[0]);
+            boolean repetir = true;
+            do {
+                final String[] OPCIONESMENU = {"Añadir Producto", "Consultar Ventas", "Eliminar producto", "Editar producto", "Salir"};
+                int opcion = JOptionPane.showOptionDialog(null,
+                        "¿Qué tarea desea realizar?", "Acceder como Admin",
+                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                        OPCIONESMENU, OPCIONESMENU[0]);
 
-            switch (opcion) {
-                //Añadir producto
-                case 0 -> {
+                switch (opcion) {
+                    //Añadir producto
+                    case 0 -> {
 
-                    final String[] OPCIONANADIR = {"Hamburguesa Pollo", "Hamburguesa Parrilla", "Hamburguesa Vegetal",
-                        "Entrante Frito", "Entrante Ensalada ", "Bebida Alcoholica", "Bebida Refresco", "Bebida Caliente", "Postres", "Otros"};
-                    int clave = JOptionPane.showOptionDialog(null,
-                            "¿Qué tarea desea realizar?", "Acceder como Admin",
-                            JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                            OPCIONESMENU, OPCIONESMENU[0]);
-                    Programa.agregarProducto(baseDatos, clave);
+                        final String[] OPCIONANADIR = {"Hamburguesa Pollo", "Hamburguesa Parrilla", "Hamburguesa Vegetal",
+                            "Entrante Frito", "Entrante Ensalada ", "Bebida Alcoholica", "Bebida Refresco", "Bebida Caliente", "Postres", "Otros"};
+                        int clave = JOptionPane.showOptionDialog(null,
+                                "¿Qué tarea desea realizar?", "Acceder como Admin",
+                                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                OPCIONESMENU, OPCIONESMENU[0]);
+                        Programa.agregarProducto(baseDatos, clave);
 
-                }
-                //Consultar ventas
-                case 1 -> {
+                    }
+                    //Consultar ventas
+                    case 1 -> {
 
-                }
-                //Eliminar producto
-                case 2 -> {
-                    Producto p = Programa.catalogo(maquina, baseDatos);
-                    Programa.eliminarProducto(baseDatos, p);
-                }
-                //Editar producto
-                case 3 -> {
-                    Programa.catalogo(maquina, baseDatos);
+                    }
+                    //Eliminar producto
+                    case 2 -> {
+                        Producto p = Programa.catalogo(maquina, baseDatos);
+                        Programa.eliminarProducto(baseDatos, p);
+                    }
+                    //Editar producto
+                    case 3 -> {
+                        Programa.modificarProducto(maquina, baseDatos);
 
+                    }
+                    case 4 -> {
+                        repetir = false;
+                    }
                 }
-                case 4 -> {
-                    return false;
-                }
-            }
+            } while (repetir);
             return true;
         } else {
             JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
@@ -583,11 +585,57 @@ public class Programa {
 
     }
 
-    public static void guardarTarjeta(BBDD baseDatos) {
+    public static void modificarProducto(TPV maquina, BBDD baseDatos) {
+        Producto producto = Programa.catalogo(maquina, baseDatos);
+        final String[] OPCIONESMENU = {"Aceptar", "Cancelar"};
+        int opcion = JOptionPane.showOptionDialog(null,
+                "¿Está seguro de que quiere editar el producto?", "Acceder como Admin",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                OPCIONESMENU, OPCIONESMENU[0]);
+        switch (opcion) {
+            case 0 -> {
+                final String[] ELECCION = {"Nombre", "Descripción", "Stock", "Precio", "Categoría", "Subcategoría"};
+                int opcionEditar = JOptionPane.showOptionDialog(null,
+                        "¿Qué desea editar?", "Acceder como Admin",
+                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                        ELECCION, ELECCION[0]);
 
-    }
+                switch (opcionEditar) {
+                    //Nombre
+                    case 0 -> {
+                        String nombreNuevo = JOptionPane.showInputDialog("Escriba el nuevo nombre del producto: ");
+                        producto.setNomProducto(nombreNuevo);
+                    }
+                    //Descripción
+                    case 1 -> {
+                        String descNueva = JOptionPane.showInputDialog("Escriba la nueva descripción del producto: ");
 
-    public static void modificarProducto(int Id, String nuevoNombre, String nuevaDescripición, double nuevoPrecio, int nuevoStock) {
+                    }
+                    //Stock
+                    case 2 -> {
+                        int stockNuevo = Integer.parseInt((JOptionPane.showInputDialog("Escriba el nuevo stock del producto: ")));
+
+                    }
+                    //Precio
+                    case 3 -> {
+                        double precioNuevo = Double.parseDouble((JOptionPane.showInputDialog("Escriba el nuevo precio del producto: ")));
+
+                    }
+                    //Categoría
+                    case 4 -> {
+
+                    }
+                    //Subcategoría
+                    case 5 -> {
+
+                    }
+
+                }
+            }
+            case 1 -> {
+                JOptionPane.showMessageDialog(null, "Se ha cancelado la acción");
+            }
+        }
 
     }
 

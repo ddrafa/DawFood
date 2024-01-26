@@ -27,7 +27,7 @@ public class Producto {
     private SUBCATEGORIAENTRANTE subCategoriaE;
     private SUBCATEGORIAOTROS subCategoriaO;
     private int stock;
-    private IVA iva;
+    private final IVA iva;
 
     public Producto(String nomProducto, String descripcion, double precio,
             CATEGORIA categoria, SUBCATEGORIAHAMBURGUESA subcategoria, int stock, IVA iva) {
@@ -179,10 +179,6 @@ public class Producto {
 
     public void setStock(int stock) {
         this.stock = stock;
-    }
-
-    public void setIva(IVA iva) {
-        this.iva = iva;
     }
 
     @Override
