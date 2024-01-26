@@ -568,21 +568,22 @@ public class Programa {
     }
 
     public static void eliminarProducto(BBDD baseDatos, Producto producto) {
-        final String[] OPCIONESMENU = {"Aceptar", "Cancelar"};
-        int opcion = JOptionPane.showOptionDialog(null,
-                "¿Está seguro?", "Acceder como Admin",
-                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                OPCIONESMENU, OPCIONESMENU[0]);
-        switch (opcion) {
-            case 0 -> {
-                baseDatos.getListaProductos().remove(producto);
-                JOptionPane.showMessageDialog(null, "Producto eliminado con éxito.");
-            }
-            case 1 -> {
-                JOptionPane.showMessageDialog(null, "Se ha cancelado la acción");
+        if (!(producto.getNomProducto().equalsIgnoreCase("NaN"))) {
+            final String[] OPCIONESMENU = {"Aceptar", "Cancelar"};
+            int opcion = JOptionPane.showOptionDialog(null,
+                    "¿Está seguro?", "Acceder como Admin",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                    OPCIONESMENU, OPCIONESMENU[0]);
+            switch (opcion) {
+                case 0 -> {
+                    baseDatos.getListaProductos().remove(producto);
+                    JOptionPane.showMessageDialog(null, "Producto eliminado con éxito.");
+                }
+                case 1 -> {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado la acción");
+                }
             }
         }
-
     }
 
     public static void modificarProducto(TPV maquina, BBDD baseDatos) {
@@ -627,10 +628,14 @@ public class Programa {
                         do {
                             String nuevaCategoria = JOptionPane.showInputDialog("Escriba la nueva categoría del producto: ").toLowerCase();
                             switch (nuevaCategoria) {
-                                case "hamburguesas" -> producto.setCategoria(CATEGORIA.Hamburguesas);
-                                case "entrantes" -> producto.setCategoria(CATEGORIA.Entrantes);
-                                case "bebidas" -> producto.setCategoria(CATEGORIA.Bebidas);
-                                case "otros" -> producto.setCategoria(CATEGORIA.Otros);
+                                case "hamburguesas" ->
+                                    producto.setCategoria(CATEGORIA.Hamburguesas);
+                                case "entrantes" ->
+                                    producto.setCategoria(CATEGORIA.Entrantes);
+                                case "bebidas" ->
+                                    producto.setCategoria(CATEGORIA.Bebidas);
+                                case "otros" ->
+                                    producto.setCategoria(CATEGORIA.Otros);
                                 default -> {
                                     proseguir = false;
                                     JOptionPane.showMessageDialog(null, "Asegurate de introducir una categoría válida (Hamburguesas, Entrantes, Bebidas, Otros) ");

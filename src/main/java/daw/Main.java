@@ -29,13 +29,13 @@ public class Main {
                     if(ticket!=null){
                         ticket.setNumPedido(pedido);
                         JOptionPane.showMessageDialog(null,ticket.toString());
-                        proceder=false;
-                    }else{
                         proceder=true;
+                        pedido++;
+                    }else{
+                        proceder=false;
                     }
                     }while(proceder);
                     proceder=true;
-                    pedido++;
                 }
                 case 1 -> {
                     do{
