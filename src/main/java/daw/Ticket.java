@@ -81,9 +81,10 @@ public class Ticket {
                 .append(fechaTicket.getYear()).append("\n");
         sb.append(fechaTicket.getHour()).append(":")
                 .append(fechaTicket.getMinute()).append(":")
-                .append(fechaTicket.getSecond());
+                .append(fechaTicket.getSecond()).append("\n");
         sb.append("-------------------------------------------------").append("\n");
-        sb.append("Tarjeta con la que se ha realizado el pago: ").append(tarjeta.getNumeroTarjeta());
+        sb.append("Tarjeta: ")
+                .append(tarjeta.getNumeroTarjeta());
         return sb.toString();
     }
 }

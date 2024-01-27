@@ -29,23 +29,23 @@ public class BBDD {
         this.listaTPVs.add(new TPV("Cancelada Avd.Las Palmeras"));
 
         //TARJETAS
-        this.listaTarjetas.add(new Tarjeta(1123, 456, "Paquito Sánchez", 114.89, LocalDate.of(2060, 5, 31)));
+        this.listaTarjetas.add(new Tarjeta("1123", "456", "Paquito Sánchez", 114.89, LocalDate.of(2060, 5, 31)));
 
-        this.listaTarjetas.add(new Tarjeta(8997, 113, "MariLoli García", 30.6, LocalDate.of(2025, 6, 30)));
+        this.listaTarjetas.add(new Tarjeta("8997", "113", "MariLoli García", 30.6, LocalDate.of(2025, 6, 30)));
 
-        this.listaTarjetas.add(new Tarjeta(5559, 496, "Jesús Hernández", 500_000_000, LocalDate.of(2040, 12, 31)));
+        this.listaTarjetas.add(new Tarjeta("5559", "496", "Jesús Hernández", 500_000_000, LocalDate.of(2040, 12, 31)));
 
-        this.listaTarjetas.add(new Tarjeta(6643, 224, "Nuria Del Castillo", 456, LocalDate.of(2036, 2, 28)));
+        this.listaTarjetas.add(new Tarjeta("6643", "224", "Nuria Del Castillo", 456, LocalDate.of(2036, 2, 28)));
 
-        this.listaTarjetas.add(new Tarjeta(9213, 590, "Fernando Fernández", 749, LocalDate.of(3333, 3, 31)));
+        this.listaTarjetas.add(new Tarjeta("9213", "590", "Fernando Fernández", 749, LocalDate.of(3333, 3, 31)));
 
-        this.listaTarjetas.add(new Tarjeta(6656, 777, "Inés González", 121212, LocalDate.of(2040, 11, 30)));
+        this.listaTarjetas.add(new Tarjeta("6656", "777", "Inés González", 121212, LocalDate.of(2040, 11, 30)));
 
-        this.listaTarjetas.add(new Tarjeta(4398, 130, "Sergio Pérez", 700, LocalDate.of(2029, 9, 30)));
+        this.listaTarjetas.add(new Tarjeta("4398", "130", "Sergio Pérez", 700, LocalDate.of(2029, 9, 30)));
 
-        this.listaTarjetas.add(new Tarjeta(8966, 754, "Rafael Puentes", 2212, LocalDate.of(2045, 7, 31)));
+        this.listaTarjetas.add(new Tarjeta("8966", "754", "Rafael Puentes", 2212, LocalDate.of(2045, 7, 31)));
 
-        this.listaTarjetas.add(new Tarjeta(0773, 263, "Clara Palas", 3344, LocalDate.of(2026, 10, 31)));
+        this.listaTarjetas.add(new Tarjeta("0773", "263", "Clara Palas", 3344, LocalDate.of(2026, 10, 31)));
 
         //HAMBURGUESAS
         this.listaProductos.add(new Producto("El Pollazo",
@@ -168,11 +168,19 @@ public class BBDD {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("BBDD{");
-        sb.append("listaTPVs=").append(listaTPVs);
-        sb.append(", listaTarjetas=").append(listaTarjetas);
-        sb.append(", listaProductos=").append(listaProductos);
-        sb.append('}');
+        sb.append("BBDD:");
+        sb.append("listaTPVs: ").append("\n");
+                for(TPV tpv : listaTPVs){
+        sb.append(tpv.getLocation()).append(": ").append(tpv.getPassword()).append("\n");
+                }
+        sb.append("listaTarjetas: ").append("\n");
+                for(Tarjeta tarjeta : listaTarjetas){
+        sb.append(tarjeta.toString()).append("\n");
+                }
+                sb.append("listaProductos: ").append("\n");
+                for(Producto producto : listaProductos){
+        sb.append(producto.toString()).append("\n");
+                }
         return sb.toString();
     }
 

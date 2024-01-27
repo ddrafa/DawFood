@@ -187,14 +187,17 @@ public class Producto {
         sb.append("Producto{");
         sb.append("Id=").append(Id);
         sb.append(", nomProducto=").append(nomProducto);
-        sb.append(", descripcion=").append(descripcion);
+        sb.append(", stock=").append(stock);
         sb.append(", precio=").append(precio);
+        sb.append(", descripcion=").append(descripcion);
         sb.append(", categoria=").append(categoria);
         sb.append(", subcategoria=").append(subCategoriaH);
-        sb.append(", stock=").append(stock);
         sb.append(", iva=").append(iva);
         sb.append('}');
         return sb.toString();
     }
 
+    public void setStockMenos(int stock) {
+        this.stock = stock--;
+    }
 }

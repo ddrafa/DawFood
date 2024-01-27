@@ -12,13 +12,13 @@ import java.time.LocalDate;
  */
 public class Tarjeta {
 
-    private final int numeroTarjeta;
-    private final int CVV;
+    private final String numeroTarjeta;
+    private final String CVV;
     private final String titular;
     private double saldo;
     private final LocalDate fechaVencimiento;
 
-    public Tarjeta(int numeroTarjeta, int CVV, String titular, double saldo, LocalDate fechaVencimiento) {
+    public Tarjeta(String numeroTarjeta, String CVV, String titular, double saldo, LocalDate fechaVencimiento) {
         this.numeroTarjeta = numeroTarjeta;
         this.CVV = CVV;
         this.titular = titular;
@@ -26,11 +26,11 @@ public class Tarjeta {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public int getNumeroTarjeta() {
+    public String getNumeroTarjeta() {
         return numeroTarjeta;
     }
 
-    public int getCVV() {
+    public String getCVV() {
         return CVV;
     }
 
@@ -49,6 +49,18 @@ public class Tarjeta {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tarjeta:");
+        sb.append(" numeroTarjeta=").append(numeroTarjeta);
+        sb.append(", CVV=").append(CVV);
+        sb.append(", saldo=").append(saldo);
+        sb.append(", fechaVencimiento=").append(fechaVencimiento).append("|");
+        return sb.toString();
+    }
+    
 }
 
 //Las tarjetas estarán incluidas en la BBDD y usarán el método class porque sus valores van a cambiar, más especificamente el saldo

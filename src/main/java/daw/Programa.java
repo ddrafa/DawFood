@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class Programa {
 
     public static TPV elegirTPV(BBDD baseDatos) {
-        final String[] OPCIONESMENU = {"TPV 1", "TPV 2", "TPV 3", "TPV 4"};
+        final String[] OPCIONESMENU = {"TPV 1", "TPV 2", "TPV 3", "TPV 4", "Salir"};
         int seleccion = JOptionPane.showOptionDialog(null, "Selecciona una TPV", "Selección",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, OPCIONESMENU, OPCIONESMENU[0]);
 
@@ -60,13 +60,78 @@ public class Programa {
                 case 0 -> {
                     Producto producto = Programa.catalogo(maquina, baseDatos);
                     if (!(producto.getNomProducto().equalsIgnoreCase("NaN"))) {
-                        final String[] OPCIONCANT = {" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "};
-                        int cantidad = JOptionPane.showOptionDialog(null,
-                                "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
-                                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                                OPCIONCANT, OPCIONCANT[0]);
-                        for (int i = 0; i <= cantidad; i++) {
-                            carrito.agregarProducto(producto);
+                        if (producto.getStock() > 8) {
+                            final String[] OPCIONCANT = {" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "};
+                            int cantidad = JOptionPane.showOptionDialog(null,
+                                    "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    OPCIONCANT, OPCIONCANT[0]);
+                            for (int i = 0; i <= cantidad; i++) {
+                                carrito.agregarProducto(producto);
+                            }
+                        } else if (!(producto.getStock() > 7)) {
+                            final String[] OPCIONCANT = {" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 "};
+                            int cantidad = JOptionPane.showOptionDialog(null,
+                                    "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    OPCIONCANT, OPCIONCANT[0]);
+                            for (int i = 0; i <= cantidad; i++) {
+                                carrito.agregarProducto(producto);
+                            }
+                        } else if (!(producto.getStock() > 6)) {
+                            final String[] OPCIONCANT = {" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 "};
+                            int cantidad = JOptionPane.showOptionDialog(null,
+                                    "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    OPCIONCANT, OPCIONCANT[0]);
+                            for (int i = 0; i <= cantidad; i++) {
+                                carrito.agregarProducto(producto);
+                            }
+                        } else if (!(producto.getStock() > 5)) {
+                            final String[] OPCIONCANT = {" 1 ", " 2 ", " 3 ", " 4 ", " 5 "};
+                            int cantidad = JOptionPane.showOptionDialog(null,
+                                    "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    OPCIONCANT, OPCIONCANT[0]);
+                            for (int i = 0; i <= cantidad; i++) {
+                                carrito.agregarProducto(producto);
+                            }
+                        } else if (!(producto.getStock() > 4)) {
+                            final String[] OPCIONCANT = {" 1 ", " 2 ", " 3 ", " 4 "};
+                            int cantidad = JOptionPane.showOptionDialog(null,
+                                    "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    OPCIONCANT, OPCIONCANT[0]);
+                            for (int i = 0; i <= cantidad; i++) {
+                                carrito.agregarProducto(producto);
+                            }
+                        } else if (!(producto.getStock() > 3)) {
+                            final String[] OPCIONCANT = {" 1 ", " 2 ", " 3 "};
+                            int cantidad = JOptionPane.showOptionDialog(null,
+                                    "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    OPCIONCANT, OPCIONCANT[0]);
+                            for (int i = 0; i <= cantidad; i++) {
+                                carrito.agregarProducto(producto);
+                            }
+                        } else if (!(producto.getStock() > 2)) {
+                            final String[] OPCIONCANT = {" 1 ", " 2 "};
+                            int cantidad = JOptionPane.showOptionDialog(null,
+                                    "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    OPCIONCANT, OPCIONCANT[0]);
+                            for (int i = 0; i <= cantidad; i++) {
+                                carrito.agregarProducto(producto);
+                            }
+                        } else if (!(producto.getStock() > 1)) {
+                            final String[] OPCIONCANT = {" 1 "};
+                            int cantidad = JOptionPane.showOptionDialog(null,
+                                    "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    OPCIONCANT, OPCIONCANT[0]);
+                            for (int i = 0; i <= cantidad; i++) {
+                                carrito.agregarProducto(producto);
+                            }
                         }
                     }
                 }
@@ -130,32 +195,39 @@ public class Programa {
 
     public static Ticket pagar(BBDD baseDatos, Carrito carrito) {
         boolean proceder = true;
-        int digitos = 1111;
         final double TOTAL = carrito.precioTotal();
         Ticket ticket = new Ticket(carrito, TOTAL);
-        do {
-            try {
-                digitos = Integer.parseInt(JOptionPane.showInputDialog("Inserta los 4 últimos dígitos de tú tarjeta\nTotal: " + TOTAL + "€"));
-                for (int i = 0; i < baseDatos.getListaTarjetas().size(); i++) {
-                    if (baseDatos.getListaTarjetas().get(i).getNumeroTarjeta() != (digitos)) {
-                        JOptionPane.showMessageDialog(null,
-                                "ERROR, LA TARJETA QUE HA INSERTADO NO EXISTE, PRUEBE OTRA");
-                    } else {
-                        if (TOTAL > baseDatos.getListaTarjetas().get(i).getSaldo()) {
-                            JOptionPane.showMessageDialog(null,
-                                    "ERROR, LA TARJETA QUE HA INSERTADO NO TIENE SUFICIENTE SALDO, INSERTE OTRA");
-                        } else {
-                            ticket.setTarjeta(baseDatos.getListaTarjetas().get(i));
-                            baseDatos.agregarTickets(ticket);
-                            return ticket;
+        try {
+            String digitos = JOptionPane.showInputDialog("Inserta los 4 últimos dígitos de tú tarjeta\nTotal: " + TOTAL + "€");
+            String cvv = JOptionPane.showInputDialog("Inserta los 3 dígitos del cvv");
+            LocalDate date = LocalDate.of(
+                    Integer.parseInt(JOptionPane.showInputDialog("Inserta el año de vencimento")),
+                    Integer.parseInt(JOptionPane.showInputDialog("Inserta el mes de vencimento")), 30);
+            for (int i = 0; i < baseDatos.getListaTarjetas().size(); i++) {
+                if ((baseDatos.getListaTarjetas().get(i).getNumeroTarjeta().equalsIgnoreCase(digitos))
+                        && (TOTAL <= baseDatos.getListaTarjetas().get(i).getSaldo())
+                        && baseDatos.getListaTarjetas().get(i).getCVV().equalsIgnoreCase(cvv)
+                        && baseDatos.getListaTarjetas().get(i).getFechaVencimiento().getYear() == date.getYear()
+                        && baseDatos.getListaTarjetas().get(i).getFechaVencimiento().getMonthValue() == date.getMonthValue()) {
+                    ticket.setTarjeta(baseDatos.getListaTarjetas().get(i));
+                    baseDatos.getListaTarjetas().get(i).setSaldo(baseDatos.getListaTarjetas().get(i).getSaldo()-TOTAL);
+                    baseDatos.agregarTickets(ticket);
+                    for (int k = 0; k < baseDatos.getListaProductos().size(); k++) {
+                        for (int j = 0; j < carrito.getListaSeleccionados().size(); j++) {
+                            if (baseDatos.getListaProductos().get(k).equals(carrito.getListaSeleccionados().get(j))) {
+                                baseDatos.getListaProductos().get(k).setStock(baseDatos.getListaProductos().get(j).getStock() - 1);
+                            }
                         }
                     }
+                    return ticket;
                 }
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "ERROR. PRUEBA DE NUEVO, ASEGURATE DE ESCRIBIR NÚMEROS");
             }
-        } while (proceder);
-        return ticket;
+        } catch (NumberFormatException nfe) {
+        }
+
+        JOptionPane.showMessageDialog(null,
+                "ERROR, LA TARJETA QUE HA INSERTADO NO SIRVE");
+        return null;
     }
 
     public static Producto catalogo(TPV maquina, BBDD baseDatos) {
@@ -492,35 +564,40 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Parrilla,
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Parrilla,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
         if (clave == 2) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Pollo,
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Pollo,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
         if (clave == 3) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Vegetal,
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Vegetal,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
         if (clave == 4) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Fritos,
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Fritos,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
         if (clave == 5) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Ensalada,
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Ensalada,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
 
         }
@@ -528,7 +605,8 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Alcohol,
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Alcohol,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaRefrescosAlcohol));
 
         }
@@ -536,7 +614,8 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Refresco,
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Refresco,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaRefrescosAlcohol));
 
         }
@@ -560,7 +639,8 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros,
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
 
         }
@@ -595,7 +675,7 @@ public class Programa {
                 OPCIONESMENU, OPCIONESMENU[0]);
         switch (opcion) {
             case 0 -> {
-                final String[] ELECCION = {"Nombre", "Descripción", "Stock", "Precio", "Categoría", "Subcategoría"};
+                final String[] ELECCION = {"Nombre", "Descripción", "Stock", "Precio", "Subcategoría"};
                 int opcionEditar = JOptionPane.showOptionDialog(null,
                         "¿Qué desea editar?", "Acceder como Admin",
                         JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
@@ -622,33 +702,14 @@ public class Programa {
                         double precioNuevo = Double.parseDouble((JOptionPane.showInputDialog("Escriba el nuevo precio del producto: ")));
                         producto.setPrecio(precioNuevo);
                     }
-                    //Categoría
-                    case 4 -> {
-                        boolean proseguir = true;
-                        do {
-                            String nuevaCategoria = JOptionPane.showInputDialog("Escriba la nueva categoría del producto: ").toLowerCase();
-                            switch (nuevaCategoria) {
-                                case "hamburguesas" ->
-                                    producto.setCategoria(CATEGORIA.Hamburguesas);
-                                case "entrantes" ->
-                                    producto.setCategoria(CATEGORIA.Entrantes);
-                                case "bebidas" ->
-                                    producto.setCategoria(CATEGORIA.Bebidas);
-                                case "otros" ->
-                                    producto.setCategoria(CATEGORIA.Otros);
-                                default -> {
-                                    proseguir = false;
-                                    JOptionPane.showMessageDialog(null, "Asegurate de introducir una categoría válida (Hamburguesas, Entrantes, Bebidas, Otros) ");
-                                }
-                            }
-
-                        } while (proseguir);
-                    }
                     //Subcategoría
-                    case 5 -> {
-
+                    case 4 -> {
+                        final String[] SUBCATEGORIAS = {"Pollo", "Parrilla", "Vegetal", "Frito", "Subcategoría"};
+                        int select = JOptionPane.showOptionDialog(null,
+                                "¿Qué desea editar?", "Acceder como Admin",
+                                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                ELECCION, ELECCION[0]);
                     }
-
                 }
             }
             case 1 -> {
