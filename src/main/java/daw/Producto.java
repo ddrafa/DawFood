@@ -101,6 +101,7 @@ public class Producto {
         this.Id = collect.stream().map(Object::toString).collect(Collectors.joining());
     }
 
+    //getters y setters
     public String getId() {
         return Id;
     }

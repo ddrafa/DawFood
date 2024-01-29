@@ -19,7 +19,7 @@ public class Programa {
         int seleccion = JOptionPane.showOptionDialog(null, "Selecciona una TPV", "Selección",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, OPCIONESMENU, OPCIONESMENU[0]);
 
-        //a partir de aquí se duplica
+        //Selección de que TPV encender
         switch (seleccion) {
             case 0 -> {
                 return baseDatos.getListaTPVs().get(0);
@@ -37,6 +37,7 @@ public class Programa {
         return null;
     }
 
+    //selección del modo en el que quieres acceder
     public static int encenderTPV(TPV maquina) {
         final String[] OPCIONESMENU = {"Modo Usuario", "Modo Administrador", "Apagar TPV"};
         return JOptionPane.showOptionDialog(null,
@@ -45,9 +46,11 @@ public class Programa {
                 OPCIONESMENU, OPCIONESMENU[0]);
     }
 
+    //si eleiges usuario
     public static Ticket comoUsuario(TPV maquina, BBDD baseDatos) {
         Carrito carrito = new Carrito();
         boolean proceder = true;
+        //opciones al acceder como usuario
         do {
             final String[] OPCIONESMENU = {"Catálogo de Productos", "Carrito", "Salir"};
             int opcion = JOptionPane.showOptionDialog(null,
@@ -60,12 +63,14 @@ public class Programa {
                 case 0 -> {
                     Producto producto = Programa.catalogo(maquina, baseDatos);
                     if (!(producto.getNomProducto().equalsIgnoreCase("NaN"))) {
-                        if (producto.getStock() > 8) {
+                        //pregunta cuantos quieres añadir dependiendo del stock que tenga el producto seleccionado
+                        if (producto.getStock() > 8) {                      
                             final String[] OPCIONCANT = {" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "};
                             int cantidad = JOptionPane.showOptionDialog(null,
                                     "¿Cúantos " + producto.getNomProducto() + " quieres añadir?", "tam",
                                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                                     OPCIONCANT, OPCIONCANT[0]);
+                            //lo añade al carrito
                             for (int i = 0; i <= cantidad; i++) {
                                 carrito.agregarProducto(producto);
                             }
@@ -136,19 +141,24 @@ public class Programa {
                     }
                 }
 
+                //caso del carrito 
                 case 1 -> {
+                    //si el carrito está vacío 
                     if (carrito.getListaSeleccionados().isEmpty()) {
                         JOptionPane.showMessageDialog(null, "El carrito está vacío");
                     } else {
+                        //si el carrito no está vacío, pregunta qué quieres hacer 
                         final String[] OPCIONESCARRITO = {"Ver Carrito", "Pagar", "Volver"};
                         int optCarrito = JOptionPane.showOptionDialog(null,
                                 "¿Qué desea hacer con el carrito?", "Carrito",
                                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                                 OPCIONESCARRITO, OPCIONESCARRITO[0]);
                         switch (optCarrito) {
+                            //muestra todos los productos del carrito
                             case 0 -> {
                                 Programa.gestionarCarrito(carrito);
                             }
+                             //caso pagar, sale del bucle y crea ticket
                             case 1 -> {
                                 proceder = false;
                             }
@@ -167,6 +177,7 @@ public class Programa {
         return ticket;
     }
 
+    //este método permite eliminar productos del carrito
     public static void gestionarCarrito(Carrito carrito) {
         final String[] OPCIONESCARRITO = {"Eliminar Producto", "Volver"};
         int optCarrito = JOptionPane.showOptionDialog(null,
@@ -175,7 +186,7 @@ public class Programa {
                 OPCIONESCARRITO, OPCIONESCARRITO[0]);
         switch (optCarrito) {
             case 0 -> {
-
+                //elimina el producto que se seleccione
                 ArrayList<String> listaProductos = new ArrayList<>();
                 for (Producto selected : carrito.getListaSeleccionados()) {
                     listaProductos.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
@@ -193,11 +204,13 @@ public class Programa {
         }
     }
 
+    
     public static Ticket pagar(BBDD baseDatos, Carrito carrito) {
         boolean proceder = true;
         final double TOTAL = carrito.precioTotal();
         Ticket ticket = new Ticket(carrito, TOTAL);
         try {
+            //comprueba que la tarjeta introducida se encuentre en la BBDD y si es válida (tiene suficiente saldo)
             String digitos = JOptionPane.showInputDialog("Inserta los 4 últimos dígitos de tú tarjeta\nTotal: " + TOTAL + "€");
             String cvv = JOptionPane.showInputDialog("Inserta los 3 dígitos del cvv");
             LocalDate date = LocalDate.of(
@@ -224,12 +237,12 @@ public class Programa {
             }
         } catch (NumberFormatException nfe) {
         }
-
+        //si la tarjeta no es válida
         JOptionPane.showMessageDialog(null,
                 "ERROR, LA TARJETA QUE HA INSERTADO NO SIRVE");
         return null;
     }
-
+//método que enseña el catálogo
     public static Producto catalogo(TPV maquina, BBDD baseDatos) {
         boolean repetir = true;
         String menu = """
@@ -508,6 +521,7 @@ public class Programa {
         return new Producto("NaN", "NaN", 0, CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros, 0, IVA.ivaOtros);
     }
 
+    //si se elige la opción de admin
     public static boolean comoAdministrador(TPV maquina, BBDD baseDatos) {
         String password = JOptionPane.showInputDialog("Introduce la contraseña del TPV de " + maquina.getLocation() + ":");
         if (maquina.getPassword().equals(password)) {
@@ -522,13 +536,14 @@ public class Programa {
                 switch (opcion) {
                     //Añadir producto
                     case 0 -> {
-
+                        //pregunta de que categoría y subcategoría es el producto que quieres añadir
                         final String[] OPCIONANADIR = {"Hamburguesa Pollo", "Hamburguesa Parrilla", "Hamburguesa Vegetal",
                             "Entrante Frito", "Entrante Ensalada ", "Bebida Alcoholica", "Bebida Refresco", "Bebida Caliente", "Postres", "Otros"};
                         int clave = JOptionPane.showOptionDialog(null,
                                 "¿Qué tarea desea realizar?", "Acceder como Admin",
                                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                                 OPCIONANADIR, OPCIONANADIR[0]);
+                        //te manda al método añadir producto
                         Programa.agregarProducto(baseDatos, clave);
 
                     }
@@ -541,7 +556,7 @@ public class Programa {
                                 OPCIONANADIR, OPCIONANADIR[0]);
 
                         switch (clave) {
-
+                            //te enseña los tickets de las ventas realizadas hoy, es decir, los que cumplen las restricciones del LocalDate.now
                             case 0 -> {
                                 ArrayList<Ticket> listaTickectsHoy = new ArrayList<>();
                                 for (Ticket ticket : baseDatos.getListaTickects()) {
@@ -582,6 +597,7 @@ public class Programa {
     }
 
     public static void agregarProducto(BBDD baseDatos, int clave) {
+        //dependiendo de la categoría o subcategoría elegida en la opción "añadir producto", te manda a uno de los casos del switch 
         if (clave == 1) {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
@@ -670,6 +686,7 @@ public class Programa {
     }
 
     public static void eliminarProducto(BBDD baseDatos, Producto producto) {
+        //Elimina el producto que hayas seleccionado 
         if (!(producto.getNomProducto().equalsIgnoreCase("NaN"))) {
             final String[] OPCIONESMENU = {"Aceptar", "Cancelar"};
             int opcion = JOptionPane.showOptionDialog(null,
@@ -696,6 +713,7 @@ public class Programa {
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
                 OPCIONESMENU, OPCIONESMENU[0]);
         switch (opcion) {
+            //si eliges la opción "modificar producto", pregunta cuál es la característica que quieres modificar
             case 0 -> {
                 final String[] ELECCION = {"Nombre", "Descripción", "Stock", "Precio", "Subcategoría"};
                 int opcionEditar = JOptionPane.showOptionDialog(null,
@@ -728,6 +746,7 @@ public class Programa {
                     case 4 -> {
                         boolean proseguir = true;
                         do {
+                            //te pide la subcategoría por string y si iguala a alguna de las introducidas en el switch, te manda a su caso
                             String nuevaSubcategoria = JOptionPane.showInputDialog("Introduce la nueva subcategoría del producto: ").toLowerCase();
                             switch (nuevaSubcategoria) {
                                 case "pollo" -> {

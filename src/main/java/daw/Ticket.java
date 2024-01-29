@@ -25,11 +25,11 @@ public class Ticket {
     private final ArrayList<Producto> listaProductos;
     private final LocalDateTime fechaTicket = LocalDateTime.now();
     private Tarjeta tarjeta;
-//El constructor está compuesto solo por la lista del carrito y un id propio de 5 digitos
+//El constructor está compuesto solo por la lista del carrito y un id propio de 5 dígitos
 
     public Ticket(Carrito carrito, double total) {
         this.listaProductos = carrito.getListaSeleccionados();
-
+        //genera un id random
         String aux = UUID.randomUUID().toString().toUpperCase();
         Stream<Character> digit = aux.chars().mapToObj(i -> (char) i).filter(Character::isDigit).limit(3);
         Stream<Character> alpha = aux.chars().mapToObj(i -> (char) i).filter(Character::isAlphabetic).limit(3);
@@ -39,7 +39,7 @@ public class Ticket {
 
         this.Total = total;
     }
-
+//getters y setters
     public ArrayList<Producto> getlistaProductos() {
         return listaProductos;
     }

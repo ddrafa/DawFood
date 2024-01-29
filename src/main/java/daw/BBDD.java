@@ -133,6 +133,7 @@ public class BBDD {
                 CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros, 100, IVA.ivaOtros));
     }
 
+    //getters y setters
     public ArrayList<TPV> getListaTPVs() {
         return listaTPVs;
     }
