@@ -210,7 +210,7 @@ public class Programa {
                         && baseDatos.getListaTarjetas().get(i).getFechaVencimiento().getYear() == date.getYear()
                         && baseDatos.getListaTarjetas().get(i).getFechaVencimiento().getMonthValue() == date.getMonthValue()) {
                     ticket.setTarjeta(baseDatos.getListaTarjetas().get(i));
-                    baseDatos.getListaTarjetas().get(i).setSaldo(baseDatos.getListaTarjetas().get(i).getSaldo()-TOTAL);
+                    baseDatos.getListaTarjetas().get(i).setSaldo(baseDatos.getListaTarjetas().get(i).getSaldo() - TOTAL);
                     baseDatos.agregarTickets(ticket);
                     for (int k = 0; k < baseDatos.getListaProductos().size(); k++) {
                         for (int j = 0; j < carrito.getListaSeleccionados().size(); j++) {
@@ -564,7 +564,7 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")),
                     CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Parrilla,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
@@ -572,7 +572,7 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")),
                     CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Pollo,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
@@ -580,7 +580,7 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")),
                     CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Vegetal,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
@@ -588,7 +588,7 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")),
                     CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Fritos,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
         }
@@ -596,7 +596,7 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")),
                     CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Ensalada,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
 
@@ -605,7 +605,7 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")),
                     CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Alcohol,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaRefrescosAlcohol));
 
@@ -614,7 +614,7 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")),
                     CATEGORIA.Bebidas, SUBCATEGORIABEBIDA.Refresco,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaRefrescosAlcohol));
 
@@ -639,7 +639,7 @@ public class Programa {
             baseDatos.getListaProductos().add(new Producto(
                     JOptionPane.showInputDialog("Ingrese el nombre del nuevo producto: "),
                     JOptionPane.showInputDialog("Ingrese la desdripción del nuevo producto: "),
-                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")), 
+                    Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio: ")),
                     CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros,
                     Integer.parseInt(JOptionPane.showInputDialog("Ingrese el stock del producto: ")), IVA.ivaOtros));
 
@@ -704,13 +704,81 @@ public class Programa {
                     }
                     //Subcategoría
                     case 4 -> {
-                        final String[] SUBCATEGORIAS = {"Pollo", "Parrilla", "Vegetal", "Frito", "Subcategoría"};
-                        int select = JOptionPane.showOptionDialog(null,
-                                "¿Qué desea editar?", "Acceder como Admin",
-                                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                                ELECCION, ELECCION[0]);
+                        boolean proseguir = true;
+                        do {
+                            String nuevaSubcategoria = JOptionPane.showInputDialog("Introduce la nueva subcategoría del producto: ").toLowerCase();
+                            switch (nuevaSubcategoria) {
+                                case "pollo" -> {
+                                    Producto productoNuevo = new Producto(producto.getNomProducto(),
+                                            producto.getDescripcion(), producto.getPrecio(),
+                                            CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Pollo,
+                                            producto.getStock(), producto.getIva());
+                                    baseDatos.getListaProductos().add(productoNuevo);
+                                    baseDatos.getListaProductos().remove(producto);
+
+                                }
+                                case "parrilla" -> {
+                                    Producto productoNuevo = new Producto(producto.getNomProducto(),
+                                            producto.getDescripcion(), producto.getPrecio(),
+                                            CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Parrilla,
+                                            producto.getStock(), producto.getIva());
+                                    baseDatos.getListaProductos().add(productoNuevo);
+                                    baseDatos.getListaProductos().remove(producto);
+                                }
+                                case "vegetal" -> {
+                                    Producto productoNuevo = new Producto(producto.getNomProducto(),
+                                            producto.getDescripcion(), producto.getPrecio(),
+                                            CATEGORIA.Hamburguesas, SUBCATEGORIAHAMBURGUESA.Vegetal,
+                                            producto.getStock(), producto.getIva());
+                                    baseDatos.getListaProductos().add(productoNuevo);
+                                    baseDatos.getListaProductos().remove(producto);
+                                }
+                                case "frito" -> {
+                                    Producto productoNuevo = new Producto(producto.getNomProducto(),
+                                            producto.getDescripcion(), producto.getPrecio(),
+                                            CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Fritos,
+                                            producto.getStock(), producto.getIva());
+                                    baseDatos.getListaProductos().add(productoNuevo);
+                                    baseDatos.getListaProductos().remove(producto);
+                                }
+                                case "ensalada" -> {
+                                    Producto productoNuevo = new Producto(producto.getNomProducto(),
+                                            producto.getDescripcion(), producto.getPrecio(),
+                                            CATEGORIA.Entrantes, SUBCATEGORIAENTRANTE.Ensalada,
+                                            producto.getStock(), producto.getIva());
+                                    baseDatos.getListaProductos().add(productoNuevo);
+                                    baseDatos.getListaProductos().remove(producto);
+                                }
+                                case "postre" -> {
+                                    Producto productoNuevo = new Producto(producto.getNomProducto(),
+                                            producto.getDescripcion(), producto.getPrecio(),
+                                            CATEGORIA.Otros, SUBCATEGORIAOTROS.Postres,
+                                            producto.getStock(), producto.getIva());
+                                    baseDatos.getListaProductos().add(productoNuevo);
+                                    baseDatos.getListaProductos().remove(producto);
+
+                                }
+                                case "Otros" -> {
+                                    Producto productoNuevo = new Producto(producto.getNomProducto(),
+                                            producto.getDescripcion(), producto.getPrecio(),
+                                            CATEGORIA.Otros, SUBCATEGORIAOTROS.Otros,
+                                            producto.getStock(), producto.getIva());
+                                    baseDatos.getListaProductos().add(productoNuevo);
+                                    baseDatos.getListaProductos().remove(producto);
+
+                                }
+                                default -> {
+                                    JOptionPane.showMessageDialog(null, "Subcategoría no existente.");
+                                    proseguir = false;
+                                }
+                            }
+
+                        } while (proseguir);
+
                     }
+
                 }
+
             }
             case 1 -> {
                 JOptionPane.showMessageDialog(null, "Se ha cancelado la acción");
