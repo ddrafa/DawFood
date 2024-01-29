@@ -320,26 +320,6 @@ public class Programa {
 //ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES-ENTRANTES
                     switch (subOpcion) {
                         case 0 -> {
-                            //Lista con nombre de los entrantes de ensalada
-                            ArrayList<String> listaEnsaladas = new ArrayList<>();
-                            for (Producto selected : baseDatos.getListaProductos()) {
-                                if (selected.getSubCategoriaE() == (SUBCATEGORIAENTRANTE.Ensalada)) {
-                                    listaEnsaladas.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
-                                }
-                            }
-                            listaEnsaladas.add("Volver");
-                            int selectProducto = JOptionPane.showOptionDialog(null,
-                                    menu, "Menu",
-                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                                    listaEnsaladas.toArray(), listaEnsaladas.get(0));
-                            //Manda el producto al carrito
-                            for (Producto selected : baseDatos.getListaProductos()) {
-                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaEnsaladas.get(selectProducto))) {
-                                    return selected;
-                                }
-                            }
-                        }
-                        case 1 -> {
                             //Lista con nombre de los entrantes de frito
                             ArrayList<String> listaFritos = new ArrayList<>();
                             for (Producto selected : baseDatos.getListaProductos()) {
@@ -359,6 +339,26 @@ public class Programa {
                                 }
                             }
                         }
+                        case 1 -> {
+                            //Lista con nombre de los entrantes de ensalada
+                            ArrayList<String> listaEnsaladas = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaE() == (SUBCATEGORIAENTRANTE.Ensalada)) {
+                                    listaEnsaladas.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaEnsaladas.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaEnsaladas.toArray(), listaEnsaladas.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaEnsaladas.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -370,26 +370,6 @@ public class Programa {
 //BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS-BEBIDAS
                     switch (subOpcion) {
                         case 0 -> {
-                            //Lista con nombre de las bebidas de alcohol
-                            ArrayList<String> listaAlcoholes = new ArrayList<>();
-                            for (Producto selected : baseDatos.getListaProductos()) {
-                                if (selected.getSubCategoriaB() == (SUBCATEGORIABEBIDA.Alcohol)) {
-                                    listaAlcoholes.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
-                                }
-                            }
-                            listaAlcoholes.add("Volver");
-                            int selectProducto = JOptionPane.showOptionDialog(null,
-                                    menu, "Menu",
-                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                                    listaAlcoholes.toArray(), listaAlcoholes.get(0));
-                            //Manda el producto al carrito
-                            for (Producto selected : baseDatos.getListaProductos()) {
-                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaAlcoholes.get(selectProducto))) {
-                                    return selected;
-                                }
-                            }
-                        }
-                        case 1 -> {
                             //Lista con nombre de las bebidas de refresco
                             ArrayList<String> listaRefrescos = new ArrayList<>();
                             for (Producto selected : baseDatos.getListaProductos()) {
@@ -405,6 +385,26 @@ public class Programa {
                             //Manda el producto al carrito
                             for (Producto selected : baseDatos.getListaProductos()) {
                                 if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaRefrescos.get(selectProducto))) {
+                                    return selected;
+                                }
+                            }
+                        }
+                        case 1 -> {
+                            //Lista con nombre de las bebidas de alcohol
+                            ArrayList<String> listaAlcoholes = new ArrayList<>();
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getSubCategoriaB() == (SUBCATEGORIABEBIDA.Alcohol)) {
+                                    listaAlcoholes.add(selected.getNomProducto() + " " + selected.getPrecio() + "€");
+                                }
+                            }
+                            listaAlcoholes.add("Volver");
+                            int selectProducto = JOptionPane.showOptionDialog(null,
+                                    menu, "Menu",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                    listaAlcoholes.toArray(), listaAlcoholes.get(0));
+                            //Manda el producto al carrito
+                            for (Producto selected : baseDatos.getListaProductos()) {
+                                if (selected.getNomProducto().concat(" " + selected.getPrecio() + "€").equalsIgnoreCase(listaAlcoholes.get(selectProducto))) {
                                     return selected;
                                 }
                             }
@@ -528,12 +528,34 @@ public class Programa {
                         int clave = JOptionPane.showOptionDialog(null,
                                 "¿Qué tarea desea realizar?", "Acceder como Admin",
                                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
-                                OPCIONESMENU, OPCIONESMENU[0]);
+                                OPCIONANADIR, OPCIONANADIR[0]);
                         Programa.agregarProducto(baseDatos, clave);
 
                     }
                     //Consultar ventas
                     case 1 -> {
+                        final String[] OPCIONANADIR = {"Consultar ventas de hoy", "Volver"};
+                        int clave = JOptionPane.showOptionDialog(null,
+                                "¿Qué tarea desea realizar?", "Acceder como Admin",
+                                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null,
+                                OPCIONANADIR, OPCIONANADIR[0]);
+
+                        switch (clave) {
+
+                            case 0 -> {
+                                ArrayList<Ticket> listaTickectsHoy = new ArrayList<>();
+                                for (Ticket ticket : baseDatos.getListaTickects()) {
+                                    if (ticket.getFechaTicket().getYear() == LocalDate.now().getYear()) {
+                                        if (ticket.getFechaTicket().getMonthValue() == LocalDate.now().getMonthValue()) {
+                                            if (ticket.getFechaTicket().getDayOfMonth() == LocalDate.now().getDayOfMonth()) {
+                                                listaTickectsHoy.add(ticket);
+                                            }
+                                        }
+                                    }
+                                }
+                                JOptionPane.showMessageDialog(null, listaTickectsHoy.toString());
+                            }
+                        }
 
                     }
                     //Eliminar producto
